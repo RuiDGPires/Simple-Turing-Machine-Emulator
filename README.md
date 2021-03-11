@@ -44,6 +44,7 @@ return 0;
 ```
 
 ---
+```
 tm.setAccept("qac");
 tm.setReject("qrej");
 tm.setInitial("qi");
