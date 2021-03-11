@@ -1,7 +1,3 @@
-catch.cpp
-catch.hpp
 *.o
 tm
-Makefile
-test.cpp
 .vscode
