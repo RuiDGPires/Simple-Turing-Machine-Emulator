@@ -12,7 +12,7 @@ This was made with the goal of practising C++ and for fun.
 ### Example
 
 Explaining the following code:
-```
+```cpp
 tmch::TuringMachine tm;
 tm.setAccept("qac");
 tm.setReject("qrej");
@@ -42,6 +42,7 @@ std::cout << tm << std::endl;
 
 return 0;
 ```
+
 ---
 tm.setAccept("qac");
 tm.setReject("qrej");
