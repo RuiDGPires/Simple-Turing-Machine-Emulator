@@ -44,7 +44,7 @@ return 0;
 ```
 
 ---
-```
+```cpp
 tm.setAccept("qac");
 tm.setReject("qrej");
 tm.setInitial("qi");
@@ -53,35 +53,35 @@ The code above sets all the essencial states of a Turing Machine: the accept, re
 The argument is just the name which these states will be referenced by.
 Only the initial state will be a "real" state, as in, can (and should) have connections to other states.
 
-```
+```cpp
 setRejectNoConnection(true);
 ```
 This line makes it so that every connection that is not defined, is treated as rejecting the input.
 
-```
+```cpp
 tm.addState("q1");
 ```
 This function just adds a possible state for the machine.
 Once again, the argument is the name
 
-```
+```cpp
 tm.getState("qi").addRule('0', 'x',tmch::RIGHT, "q1");
 ```
 This line defines a connection that goes from the state "qi" to the state "q1", recognizing the character '0' and writing 'x' in it's spot. It also shifts the pointer of the machine (in the input line) to the right.
 
-```
+```cpp
 tm.load("0111111");
 ```
 This line loads the parameter as the input to the machine. This function also sets the current state to the previously defined initial state.
 
-```
+```cpp
 while(tm.state != tmch::ACCEPT && tm.state != tmch::REJECT){
     tm.step();
 }
 ```
 Run the program until it is accepted or rejected
 
-```
+```cpp
 std::cout << tm << std::endl;
 ```
 Print the current configuration of the machine
