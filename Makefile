@@ -1,9 +1,9 @@
 NAME = tm
 CC=g++
 CFLAGS=-I.
-DEPS = turingmachine.hpp
+DEPS = src/turingmachine.hpp
 OFILES = turingmachine.o tmconfig.o tmstate.o
-TEST_DEPS = catch.hpp
+TEST_DEPS = src/catch.hpp
 TEST_OFILES = catch.o test.o
 
 MAIN_DEPS = ""
