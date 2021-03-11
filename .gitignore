@@ -4,3 +4,4 @@ catch.hpp
 tm
 Makefile
 test.cpp
+.vscode
