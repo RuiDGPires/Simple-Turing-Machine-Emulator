@@ -8,7 +8,7 @@ This was made with the goal of practising C++ and for fun.
 - [ ] Extensive testing
 - [ ] Some documentation and comments
 
-
+---
 ### Example
 
 Explaining the following code:
