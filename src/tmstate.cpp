@@ -50,6 +50,8 @@ void tmch::tmState::accept(tmch::tmConfig *current_config){
     if (r.dir == tmch::RIGHT){
         left.push_back(right[0]);
         right.erase(right.begin());
+        if (right.empty())
+            right.push_back(' ');
     }else{
         std::string s;
         s.push_back(left[left.size() - 1]);
