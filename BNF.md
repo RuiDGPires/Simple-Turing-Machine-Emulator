@@ -2,31 +2,31 @@
 
 All whitespace that is not a terminal symbol is ignored
 ```bnf
-<Configuration> ::= <Expression>*
+<Configuration>         ::= <Expression>*
 
-<Expression> ::= <Method-Call> | <State-Descriptor>
+<Expression>            ::= <Method-Call> | <State-Descriptor>
 
-<Method-Call> ::= <Identifier> "(" <Arguments> ");"
+<Method-Call>           ::= <Identifier> "(" <Arguments> ");"
 
-<Arguments> ::= <Identifier> | <One-Or-More-Argument> | ""
+<Arguments>             ::= <Identifier> | <One-Or-More-Argument> | ""
 
-<One-Or-More-Argument> ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
+<One-Or-More-Argument>  ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
 
-<State-Descriptor> ::= <Identifier> "->" (<State-Connection> | "{" <Connection>+ "}")";"
+<State-Descriptor>      ::= <Identifier> "->" (<State-Connection> | "{" <Connection>+ "}")";"
 
-<Connection> ::= <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
+<Connection>            ::= <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
 
-<Rule> ::= <Character> "->" <Character> "," <Direction> ";" 
+<Rule>                  ::= <Character> "->" <Character> "," <Direction> ";" 
 
-<Identifier> ::= (<Letter> | <Number>)+
+<Identifier>            ::= (<Letter> | <Number>)+
 
-<Character> ::= <Letter> | <Number> | <Quoted-Character>
+<Character>             ::= <Letter> | <Number> | <Quoted-Character>
 
-<Quoted-Character> ::= "'" (<Letter> | <Number> | <Symbol> | " ") "'"
+<Quoted-Character>      ::= "'" (<Letter> | <Number> | <Symbol> | " ") "'"
 
-<Letter> ::= "a" | ... | "z" | "A" | ... | "Z" 
+<Letter>                ::= "a" | ... | "z" | "A" | ... | "Z" 
 
-<Number> ::= "0" | ... | "9"
+<Number>                ::= "0" | ... | "9"
 
-<Symbol> ::=  "|" | " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | ">" | "=" | "<" | "?" | "@" | "[" | "\" | "]" | "^" | "_" | "`" | "{" | "}" | "~"
+<Symbol>                ::=  "|" | " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | ">" | "=" | "<" | "?" | "@" | "[" | "\" | "]" | "^" | "_" | "`" | "{" | "}" | "~"
 ```
