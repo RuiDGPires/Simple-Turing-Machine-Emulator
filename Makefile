@@ -1,13 +1,13 @@
 NAME = tm
 CC=g++
 CFLAGS=-I.
-DEPS = src/turingmachine.hpp
-OFILES = turingmachine.o tmconfig.o tmstate.o
-TEST_DEPS = src/catch.hpp
-TEST_OFILES = catch.o test.o
+DEPS = src/turingmachine/turingmachine.hpp
+OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turingmachine/tmstate.o
+TEST_DEPS = src/catch/catch.hpp
+TEST_OFILES = src/catch/catch.o src/test.o
 
 MAIN_DEPS = ""
-MAIN_OFILES = main.o 
+MAIN_OFILES = src/main.o 
 
 %.o: %.c $(DEPS) $(MAIN_DEPS) $(TEST_DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
@@ -19,4 +19,4 @@ test: $(OFILES) $(TEST_OFILES)
 	$(CC) -o $(NAME) $(OFILES) $(TEST_OFILES) -lm
 
 clean:
-	rm -f *.o $(NAME)
+	rm -f  *.o src/*.o src/catch/*.o src/turingmachine/*.o $(NAME)

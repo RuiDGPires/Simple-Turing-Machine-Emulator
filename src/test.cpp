@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "turingmachine.hpp"
+#include "turingmachine/turingmachine.hpp"
 
 
 TEST_CASE("Basic Turing Machines" ,"[factorial]"){
