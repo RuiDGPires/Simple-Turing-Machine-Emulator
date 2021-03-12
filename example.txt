@@ -1,0 +1,24 @@
+init(q0);
+acc(qac);
+rej(qrej);
+
+RejectOthers();
+
+q0 ->
+    q1: 
+        0->0, r;
+
+q1 ->
+    q2:
+        1->1, r;
+
+q2 ->
+    q3:
+        1->1, r;
+
+q3 ->{
+    q3:
+        1->1, r;
+    qac:
+        ' '->' ', r;
+}
