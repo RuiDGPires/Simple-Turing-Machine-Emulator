@@ -4,15 +4,15 @@ All whitespace that is not a terminal symbol is ignored
 ```bnf
 <Configuration> ::= <Expression>*
 
-<Expression> ::= (<Method-Call> | <State-Descriptor>) ";"
+<Expression> ::= <Method-Call> | <State-Descriptor>
 
-<Method-Call> ::= <Identifier> "(" <Arguments> ")"
+<Method-Call> ::= <Identifier> "(" <Arguments> ");"
 
 <Arguments> ::= <Identifier> | <One-Or-More-Argument> | ""
 
 <One-Or-More-Argument> ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
 
-<State-Descriptor> ::= <Identifier> "->" (<State-Connection> | "{" <Connection>+ "}")
+<State-Descriptor> ::= <Identifier> "->" (<State-Connection> | "{" <Connection>+ "}")";"
 
 <Connection> ::= <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
 
@@ -29,5 +29,4 @@ All whitespace that is not a terminal symbol is ignored
 <Number> ::= "0" | ... | "9"
 
 <Symbol> ::=  "|" | " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | ">" | "=" | "<" | "?" | "@" | "[" | "\" | "]" | "^" | "_" | "`" | "{" | "}" | "~"
-
 ```
