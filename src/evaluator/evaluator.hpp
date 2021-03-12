@@ -14,15 +14,24 @@ namespace evl{
         std::string str;
     };
 
-    enum Exception{FILE_CLOSED, FILE_OPEN_FAIL, PARSE_FAIL};
+    class ParseFailException {
+        public:
+            int line;
+            ParseFailException(int line);
+            ~ParseFailException();
+    };
+
+    enum Exception{FILE_CLOSED, FILE_OPEN_FAIL, END_OF_FILE};
 
     class FileReader{
         private:
+            int line_n = 0;
+            bool is_at_end = false;
             enum ReadState{NONE, NAME, SYMBOL, CHAR};
             std::string file_name;
             std::ifstream file;
-            std::list<Token> parseLine(std::string line);
-            std::list<Token> parseLine(std::string line, int size);
+            std::list<Token> parseLine(std::string line, int n);
+            std::list<Token> parseLine(std::string line, int size, int n);
         public:
             FileReader();
             FileReader(std::string file_name);
@@ -31,6 +40,7 @@ namespace evl{
             std::list<Token> getLine();
             void openFile();
             void closeFile();
+            bool isAtEnd();
     };
     
     class Evaluator {

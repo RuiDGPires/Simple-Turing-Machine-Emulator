@@ -7,15 +7,26 @@
 
 
 int main(){
-    try{
-        evl::FileReader f("example.txt");
-        f.openFile();
-        std::list<evl::Token> line = f.getLine();
-        for (evl::Token const &t : line)
-            std::cout << t.str + "-" << "\n";
+    evl::FileReader f("example.txt");
+    f.openFile();
 
+    try{
+        while(!f.isAtEnd()){
+            std::list<evl::Token> line = f.getLine();
+            if (!line.empty()){
+                for (evl::Token const &t : line)
+                    std::cout << t.str + " ";
+                std::cout << std::endl;
+            }
+        }
+    }catch(evl::ParseFailException e){
         f.closeFile();
+        std::cout << "Error on line: " + e.line << std::endl;
     }catch(evl::Exception e){
-        std::cerr << e << std::endl;
+        if (e == evl::Exception::END_OF_FILE)
+            std::cerr << "EOF" << std::endl;
+        else
+            std::cerr << e << std::endl;
     }
+    f.closeFile();
 }
