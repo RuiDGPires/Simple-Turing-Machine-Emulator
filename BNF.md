@@ -8,7 +8,7 @@ All whitespace that is not a terminal symbol is ignored
 
 <Method-Call>           ::= <Identifier> "(" (<Arguments> | "") ");"
 
-<Arguments>             ::= <Identifier> | <One-Or-More-Argument> | ""
+<Arguments>             ::= <Identifier> | <One-Or-More-Argument>
 
 <One-Or-More-Argument>  ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
 
