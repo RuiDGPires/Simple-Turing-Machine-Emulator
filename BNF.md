@@ -8,11 +8,11 @@ All whitespace that is not a terminal symbol is ignored
 
 <Method-Call>           ::= <Identifier> "(" (<Arguments> | "") ");"
 
-<Arguments>             ::= <Identifier> | <One-Or-More-Argument> | ""
+<Arguments>             ::= <Identifier> | <One-Or-More-Argument>
 
-<One-Or-More-Argument>  ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
+<One-Or-More-Argument>  ::= <Identifier> | <Identifier> "," <One-Or-More-Argument>
 
-<State-Descriptor>      ::= <Identifier> "->" (<State-Connection> | "{" <Connection>+ "}")";"
+<State-Descriptor>      ::= <Identifier> "->" (<Connection> | "{" <Connection>+ "}")
 
 <Connection>            ::= <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
 
@@ -23,6 +23,8 @@ All whitespace that is not a terminal symbol is ignored
 <Character>             ::= <Letter> | <Number> | <Quoted-Character>
 
 <Quoted-Character>      ::= "'" (<Letter> | <Number> | <Symbol> | " ") "'"
+
+<Direction>             ::= "r" | "R" | "l" | "L" | "s" | "S"
 
 <Letter>                ::= "a" | ... | "z" | "A" | ... | "Z" 
 
