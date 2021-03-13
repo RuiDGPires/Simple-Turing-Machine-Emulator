@@ -36,10 +36,6 @@ void tmch::tmState::addRule(char current, char dest, Dir dir, std::string state)
 void tmch::tmState::accept(tmch::tmConfig *current_config){
     std::string right = current_config->getRight();
     std::string left = current_config->getLeft();
-
-#if DEBUG
-    std::cout << right[0] << std::endl;
-#endif
     
     if (!(hasMapping(right[0])))
         throw NO_CONNECTION;

@@ -3,7 +3,7 @@
 /////////////////////////
 // Class TuringMachine //
 
-#ifdef DEBUG
+#if DEBUG
 #include <iostream>
 #endif
 

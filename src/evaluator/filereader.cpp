@@ -2,12 +2,6 @@
 
 #include <iostream>
 
-evl::ParseFailException::ParseFailException(int line){
-    this->line = line;
-}
-evl::ParseFailException::~ParseFailException(){}
-
-
 evl::FileReader::FileReader(){}
 
 evl::FileReader::FileReader(std::string file_name){
@@ -33,7 +27,7 @@ std::list<evl::Token> evl::FileReader::getLine(){
             break;
         }
         line.push_back(c);
-        if (c == ';') break;
+        if (c == ';' || c == '}') break;
     }
     
     if (c == EOF || file.peek() == EOF){
@@ -69,10 +63,11 @@ bool isSymbol(char c){
     return c == '(' || c == ')' || c == '-' || c == '>' || c == ':' || c == '{' || c == '}' || c == ';' || c == ',';
 }
 
-void dumpToken(std::list<evl::Token> *l, std::string *buffer, evl::Symb sy){
+void dumpToken(std::list<evl::Token> *l, std::string *buffer, evl::Symb sy, int line_n){
     evl::Token t;
     t.str = *buffer;
     t.symb = sy;
+    t.line = line_n;
     buffer->clear();
     l->push_back(t);
 }
@@ -94,9 +89,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                     i++;
                 } else if (isSymbol(line[i])){
                     state = evl::FileReader::ReadState::SYMBOL;
-                }else if (line[i] == ' ')
-                    i++;
-                else if (line[i] == '\0')
+                }else if (line[i] == ' ' || line[i] == '\0' || line[i] == '\n' || line[i] == '\r' || line[i] == '\t')
                     i++;
                 else
                   throw ParseFailException(n);
@@ -104,7 +97,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
             case evl::FileReader::ReadState::NAME:
                 if (!(isLetter(line[i]) || isNumber(line[i]))){
                     state = evl::FileReader::ReadState::NONE;
-                    dumpToken(&ret, &buffer, evl::Symb::NAME);
+                    dumpToken(&ret, &buffer, evl::Symb::NAME, n);
                 }else{
                     buffer.push_back(line[i]);
                     i++;
@@ -121,26 +114,26 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                         throw ParseFailException(n);
                     if (buffer[0] != '-')
                         throw ParseFailException(n);
-                    dumpToken(&ret, &buffer, evl::Symb::LINK);
+                    dumpToken(&ret, &buffer, evl::Symb::LINK, n);
                     state = evl::FileReader::ReadState::NONE;
                     i++;
                     break;
                 }
                 
                 if (line[i] == '(')
-                    dumpToken(&ret, &buffer, evl::Symb::LPAREN);
+                    dumpToken(&ret, &buffer, evl::Symb::LPAREN, n);
                 else if (line[i] == ')')
-                    dumpToken(&ret, &buffer, evl::Symb::RPAREN);
+                    dumpToken(&ret, &buffer, evl::Symb::RPAREN, n);
                 else if (line[i] == '{')
-                    dumpToken(&ret, &buffer, evl::Symb::LBRACK);
+                    dumpToken(&ret, &buffer, evl::Symb::LBRACK, n);
                 else if (line[i] == '}')
-                    dumpToken(&ret, &buffer, evl::Symb::RBRACK);
+                    dumpToken(&ret, &buffer, evl::Symb::RBRACK, n);
                 else if (line[i] == ';')
-                    dumpToken(&ret, &buffer, evl::Symb::SEMICLN);
+                    dumpToken(&ret, &buffer, evl::Symb::SEMICLN, n);
                 else if (line[i] == ':')
-                    dumpToken(&ret, &buffer, evl::Symb::CLN);
+                    dumpToken(&ret, &buffer, evl::Symb::CLN, n);
                 else if (line[i] == ',')
-                    dumpToken(&ret, &buffer, evl::Symb::COMMA);
+                    dumpToken(&ret, &buffer, evl::Symb::COMMA, n);
                 state = evl::FileReader::ReadState::NONE;
                 i++;
                 break;
@@ -149,7 +142,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                     if (buffer.length() != 1)
                         throw ParseFailException(n);
                     else{
-                        dumpToken(&ret, &buffer, evl::Symb::NAME);
+                        dumpToken(&ret, &buffer, evl::Symb::NAME, n);
                         i++;
                         state = evl::FileReader::ReadState::NONE;
                         break;

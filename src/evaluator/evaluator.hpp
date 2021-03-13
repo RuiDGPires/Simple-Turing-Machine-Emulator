@@ -6,22 +6,15 @@
 #include <fstream>
 
 #include "../turingmachine/turingmachine.hpp"
+#include "exceptions.hpp"
 
 namespace evl{
     enum Symb{NAME, LINK, LPAREN, RPAREN , LBRACK, RBRACK, SEMICLN, CLN, COMMA, END};
     struct Token{
         Symb symb;
         std::string str;
+        int line;
     };
-
-    class ParseFailException {
-        public:
-            int line;
-            ParseFailException(int line);
-            ~ParseFailException();
-    };
-
-    enum Exception{FILE_CLOSED, FILE_OPEN_FAIL, END_OF_FILE};
 
     class FileReader{
         private:
@@ -46,7 +39,16 @@ namespace evl{
     class Evaluator {
         private:
             tmch::TuringMachine tm;
-            std::list<evl::Token> requestLine(evl::FileReader *f);
+            Token current_tok;
+            std::list<evl::Token> working_list;
+
+            evl::FileReader f;
+            std::list<evl::Token> getLine();
+            void requestLine();
+            bool accept(Symb s);
+            void expect(Symb s);
+            void nextSym();
+
         public:
             Evaluator();
             ~Evaluator();

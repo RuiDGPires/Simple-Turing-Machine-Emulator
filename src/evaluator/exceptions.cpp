@@ -1,0 +1,21 @@
+#include "exceptions.hpp"
+
+evl::ParseFailException::ParseFailException(int line){
+    this->line = line;
+}
+evl::ParseFailException::~ParseFailException(){}
+
+evl::SyntaxFailException::SyntaxFailException(int line){
+    this->line = line;
+}
+
+evl::SyntaxFailException::~SyntaxFailException(){}
+
+
+evl::UnexpectedTokenException::UnexpectedTokenException(std::string str, int line){
+    this->line = line;
+    this->str = str;
+}
+
+evl::UnexpectedTokenException::~UnexpectedTokenException(){}
+

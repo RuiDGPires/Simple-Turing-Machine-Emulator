@@ -1,7 +1,7 @@
 #ifndef __TURING_MACHINE_HPP__
 #define __TURING_MACHINE_HPP__
 
-#define DEBUG 0
+#define DEBUG 1
 #include <string>
 #include <map>
 
