@@ -12,7 +12,7 @@ All whitespace that is not a terminal symbol is ignored
 
 <One-Or-More-Argument>  ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
 
-<State-Descriptor>      ::= <Identifier> "->" (<State-Connection> | "{" <Connection>+ "}")";"
+<State-Descriptor>      ::= <Identifier> "->" (<Connection> | "{" <Connection>+ "}")";"
 
 <Connection>            ::= <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
 
