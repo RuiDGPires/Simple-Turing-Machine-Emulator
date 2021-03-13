@@ -24,7 +24,7 @@ All whitespace that is not a terminal symbol is ignored
 
 <Quoted-Character>      ::= "'" (<Letter> | <Number> | <Symbol> | " ") "'"
 
-<Direction>             ::= "r" | "R" | "l" | "R" | "s" | "S"
+<Direction>             ::= "r" | "R" | "l" | "L" | "s" | "S"
 
 <Letter>                ::= "a" | ... | "z" | "A" | ... | "Z" 
 
