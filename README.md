@@ -11,7 +11,7 @@ This was made with the goal of practising C++ and for fun.
 ---
 ## Example
 
-Explaining the following code:
+Explaining the following C++ code:
 ```cpp
 tmch::TuringMachine tm;
 tm.setAccept("qac");
