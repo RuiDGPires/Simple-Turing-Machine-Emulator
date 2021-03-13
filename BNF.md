@@ -6,7 +6,7 @@ All whitespace that is not a terminal symbol is ignored
 
 <Expression>            ::= <Method-Call> | <State-Descriptor>
 
-<Method-Call>           ::= <Identifier> "(" <Arguments> ");"
+<Method-Call>           ::= <Identifier> "(" (<Arguments> | "") ");"
 
 <Arguments>             ::= <Identifier> | <One-Or-More-Argument> | ""
 
