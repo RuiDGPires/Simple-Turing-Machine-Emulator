@@ -61,7 +61,8 @@ void evl::Evaluator::requestLine(){
 
 }
 
-void evl::Evaluator::evalFile(std::string file_name){
+bool evl::Evaluator::evalFile(std::string file_name){
+    working_list.clear();
     f.setFile(file_name);
     std::list<evl::Token> line;
     f.openFile();
@@ -69,27 +70,29 @@ void evl::Evaluator::evalFile(std::string file_name){
     try{
         configuration();
     }catch(evl::ParseFailException e){
-        std::cerr << "Parse error on line: " << e.line << std::endl;
+        std::cout << "Parse error on line: " << e.line << std::endl;
         f.closeFile();
-        return;
+        return false;
     }catch(evl::SyntaxFailException e){
-        std::cerr << "Syntax error on line: " << e.line << std::endl;
+        std::cout << "Syntax error on line: " << e.line << std::endl;
         f.closeFile();
-        return;
+        return false;
     }catch(evl::UnexpectedTokenException e){
-        std::cerr << "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
+        std::cout << "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
         f.closeFile();
-        return;
+        return false;
     }catch(evl::GenericException e){
         switch(e){
             case END_OF_FILE:
                 std::cout << "End of file" << std::endl;
                 f.closeFile();
-                return;
+                return true;
                 break;
         }
     }
     
     f.closeFile();
+    return true;
 }
+
 

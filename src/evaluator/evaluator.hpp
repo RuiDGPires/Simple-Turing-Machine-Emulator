@@ -44,6 +44,8 @@ namespace evl{
 
             evl::FileReader f;
             std::list<evl::Token> getLine();
+
+            
             void requestLine();
             bool accept(Symb s);
             void expect(Symb s);
@@ -63,7 +65,7 @@ namespace evl{
         public:
             Evaluator();
             ~Evaluator();
-            void evalFile(std::string file_name);
+            bool evalFile(std::string file_name);
     };
 }
 

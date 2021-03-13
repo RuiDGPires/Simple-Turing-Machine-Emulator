@@ -12,6 +12,7 @@ evl::FileReader::~FileReader(){}
 
 void evl::FileReader::setFile(std::string file_name){
     this->file_name = file_name;
+    is_at_end = false;
 }
 
 std::list<evl::Token> evl::FileReader::getLine(){

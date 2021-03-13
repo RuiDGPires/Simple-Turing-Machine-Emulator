@@ -1,15 +1,17 @@
 #define CATCH_CONFIG_MAIN
 #include "catch/catch.hpp"
-#include "turingmachine/turingmachine.hpp"
+#include "evaluator/evaluator.hpp"
+
+#include <iostream>
 
 
-TEST_CASE("Basic Turing Machines" ,"[factorial]"){
-    tmch::TuringMachine tm;
-
-    tm.setAccept("qac");
-    tm.setReject("qrej");
-    tm.setInitial("qi");
-    tm.getState("qi").addRule('1', '1',tmch::RIGHT, "qac");
-    tm.getState("qi").addRule('0', '0',tmch::RIGHT, "qrej");
-    tm.load("1");
+TEST_CASE("Text syntax evaluation tests" ,"[Syntax]"){
+    //std::cout.setstate(std::ios_base::failbit);
+    evl::Evaluator e;
+    REQUIRE(e.evalFile("tests/pass1.conf"));
+    REQUIRE(e.evalFile("tests/pass2.conf"));
+    REQUIRE(e.evalFile("tests/pass3.conf"));
+    REQUIRE(!e.evalFile("tests/fail1.conf"));
+    REQUIRE(!e.evalFile("tests/fail2.conf"));
+    REQUIRE(!e.evalFile("tests/fail3.conf"));
 }

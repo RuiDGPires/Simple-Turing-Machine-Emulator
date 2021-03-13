@@ -8,6 +8,6 @@
 
 int main(){
     evl::Evaluator e;
-    e.evalFile("example.txt");
+    e.evalFile("tests/fail1.conf");
     return 0;
 }

@@ -16,7 +16,7 @@ all: $(OFILES) $(MAIN_OFILES)
 	$(CC) -o $(NAME) $(OFILES) $(MAIN_OFILES) -lm
 
 test: $(OFILES) $(TEST_OFILES)
-	$(CC) -o $(NAME) $(OFILES) $(TEST_OFILES) -lm
+	$(CC) -o test $(OFILES) $(TEST_OFILES) -lm
 
 clean:
 	rm -f  *.o src/*.o src/catch/*.o src/turingmachine/*.o $(NAME)
