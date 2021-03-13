@@ -46,6 +46,7 @@ namespace evl{
     class Evaluator {
         private:
             tmch::TuringMachine tm;
+            std::list<evl::Token> requestLine(evl::FileReader *f);
         public:
             Evaluator();
             ~Evaluator();
