@@ -18,7 +18,7 @@ namespace evl{
 
     class FileReader{
         private:
-            int line_n = 0;
+            int line_n = 1;
             bool is_at_end = false;
             enum ReadState{NONE, NAME, SYMBOL, CHAR};
             std::string file_name;
@@ -48,6 +48,17 @@ namespace evl{
             bool accept(Symb s);
             void expect(Symb s);
             void nextSym();
+
+            //Stuff for evaluating
+            void configuration();
+            bool expression();
+            bool arguments();
+            void connection();
+            void rule();
+            void identifier();
+            void character();
+            void direction();
+
 
         public:
             Evaluator();

@@ -20,7 +20,6 @@ std::list<evl::Token> evl::FileReader::getLine(){
 
     char c;
     std::string line;
-
     while(file.get(c)){
         if (c == '\n'){
             line_n++;

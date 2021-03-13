@@ -3,7 +3,6 @@ acc(qac);
 rej(qrej);
 
 RejectOthers();
-
 q0 ->
     q1: 
         0->0, r;

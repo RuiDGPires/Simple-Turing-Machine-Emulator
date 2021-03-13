@@ -2,7 +2,7 @@ NAME = tm
 CC=g++
 CFLAGS=-I.
 DEPS = src/turingmachine/turingmachine.hpp src/evaluator/evaluator.hpp src/evaluator/exceptions.hpp
-OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turingmachine/tmstate.o src/evaluator/evaluator.o src/evaluator/filereader.o  src/evaluator/exceptions.o
+OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turingmachine/tmstate.o src/evaluator/evaluator.o src/evaluator/evaluator_parsing.o src/evaluator/filereader.o  src/evaluator/exceptions.o
 TEST_DEPS = src/catch/catch.hpp
 TEST_OFILES = src/catch/catch.o src/test.o
 

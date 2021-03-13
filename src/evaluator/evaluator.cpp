@@ -61,58 +61,35 @@ void evl::Evaluator::requestLine(){
 
 }
 
-void evl::Evaluator::nextSym(){
-    if (working_list.empty()){
-        requestLine();
-    }
-    current_tok = *(working_list.begin());
-    working_list.pop_front();
-}
-bool evl::Evaluator::accept(Symb s){
-    if (current_tok.symb == s){
-        nextSym();
-        return true;
-    }
-    return false;
-}
-void evl::Evaluator::expect(Symb s){
-    if (current_tok.symb == s){
-        nextSym();
-    }else
-        throw UnexpectedTokenException(current_tok.str, current_tok.line);
-}
-
 void evl::Evaluator::evalFile(std::string file_name){
     f.setFile(file_name);
     std::list<evl::Token> line;
     f.openFile();
 
-    do{
-        try{
-            requestLine();
-            printList(working_list);
-        }catch(evl::ParseFailException e){
-            std::cerr << "Parse error on line: " << e.line << std::endl;
-            f.closeFile();
-            return;
-        }catch(evl::SyntaxFailException e){
-            std::cerr << "Syntax error on line: " << e.line << std::endl;
-            f.closeFile();
-            return;
-        }catch(evl::UnexpectedTokenException e){
-            std::cerr << "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
-            f.closeFile();
-            return;
-        }catch(evl::GenericException e){
-            switch(e){
-                case END_OF_FILE:
-                    std::cout << "End of file" << std::endl;
-                    f.closeFile();
-                    return;
-                    break;
-            }
+    try{
+        configuration();
+    }catch(evl::ParseFailException e){
+        std::cerr << "Parse error on line: " << e.line << std::endl;
+        f.closeFile();
+        return;
+    }catch(evl::SyntaxFailException e){
+        std::cerr << "Syntax error on line: " << e.line << std::endl;
+        f.closeFile();
+        return;
+    }catch(evl::UnexpectedTokenException e){
+        std::cerr << "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
+        f.closeFile();
+        return;
+    }catch(evl::GenericException e){
+        switch(e){
+            case END_OF_FILE:
+                std::cout << "End of file" << std::endl;
+                f.closeFile();
+                return;
+                break;
         }
-    }while(1);
+    }
     
     f.closeFile();
 }
+
