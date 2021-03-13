@@ -10,7 +10,7 @@ All whitespace that is not a terminal symbol is ignored
 
 <Arguments>             ::= <Identifier> | <One-Or-More-Argument>
 
-<One-Or-More-Argument>  ::=  <Identifier> | <Identifier> "," <One-Or-More-Argument>
+<One-Or-More-Argument>  ::= <Identifier> | <Identifier> "," <One-Or-More-Argument>
 
 <State-Descriptor>      ::= <Identifier> "->" (<Connection> ";" | "{" <Connection>+ "}")
 
