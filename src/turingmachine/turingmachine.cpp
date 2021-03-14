@@ -71,6 +71,12 @@ void tmch::TuringMachine::step(){
         state = REJECT;
 }
 
+void tmch::TuringMachine::run(){
+    do{
+        this->step();
+    }while(state == State::RUNNING);
+}
+
 void tmch::TuringMachine::setRejectNoConnection(bool v){
     reject_no_conn = v;
 }

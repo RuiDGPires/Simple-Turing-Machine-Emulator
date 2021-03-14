@@ -63,6 +63,7 @@ namespace tmch{
             bool stateExists(std::string key);
             void load(std::string s);
             void step();
+            void run();
             void setRejectNoConnection(bool v);
             std::string toString() const;
     };
