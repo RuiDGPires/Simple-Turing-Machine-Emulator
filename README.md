@@ -9,7 +9,7 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 - [x] Text evaluator for ease of use
 - [ ] Extensive testing
 - [ ] Some documentation and comments
-- [ ] Windows exporting
+- [x] Windows exporting
 
 ---
 ## Example
