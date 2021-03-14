@@ -2,7 +2,8 @@
 A simple turing machine emulator
 
 This was made with the goal of practising C++ and for fun.
-Testing is made using [catch](https://github.com/catchorg/Catch2).
+
+Testing is done using [catch](https://github.com/catchorg/Catch2).
 
 ## To-do 
 - [x] Text evaluator for ease of use
