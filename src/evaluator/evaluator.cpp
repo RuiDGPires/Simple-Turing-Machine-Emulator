@@ -92,7 +92,6 @@ bool evl::Evaluator::evalFile(std::string file_name){
     }catch(evl::GenericException e){
         switch(e){
             case END_OF_FILE:
-                std::cout << "End of file" << std::endl;
                 f.closeFile();
                 return true;
                 break;
