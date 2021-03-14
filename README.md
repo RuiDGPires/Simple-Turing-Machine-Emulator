@@ -74,9 +74,7 @@ tm.getState("q3").addRule(' ', ' ',tmch::RIGHT, "qac");
 
 tm.load("001111");
 
-while(tm.state != tmch::ACCEPT && tm.state != tmch::REJECT){
-    tm.step();
-}
+tm.run();
 std::cout << tm << std::endl;
 
 return 0;
@@ -114,9 +112,7 @@ tm.load("0111111");
 This line loads the parameter as the input to the machine. This function also sets the current state to the previously defined initial state.
 
 ```cpp
-while(tm.state != tmch::ACCEPT && tm.state != tmch::REJECT){
-    tm.step();
-}
+tm.run();
 ```
 Run the program until it is accepted or rejected
 
