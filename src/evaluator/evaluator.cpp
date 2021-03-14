@@ -96,6 +96,8 @@ bool evl::Evaluator::evalFile(std::string file_name){
                 f.closeFile();
                 return true;
                 break;
+            default:
+                throw e;
         }
     }
     
