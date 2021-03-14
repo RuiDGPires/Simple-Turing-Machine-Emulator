@@ -26,4 +26,4 @@ clean:
 
 
 windows: $(DEPS) 
-	$(WCC) -o $(NAME).exe $(CPPFILES) $(MAIN_CFILES) -lm -static-libstdc++
+	$(WCC) -o $(NAME).exe $(CPPFILES) $(MAIN_CFILES) -lm --static -static-libstdc++
