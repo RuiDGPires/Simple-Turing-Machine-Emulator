@@ -16,7 +16,7 @@ The following Turing Machine accepts all input that starts with two '0's and has
 
 Let's say we want to test the input 001111:
 
-
+---
 ### Using the text evaluator
 The configuration file will be [example.txt](example.txt), and it follows the syntax described in [BNF.md](BNF.md):
 ```
@@ -48,7 +48,7 @@ q3 ->{
 The test is simply run with the following command (linux terminal):
 >./tm example.txt 001111
 
-
+---
 ### Using the Turing Machine library directly
 ```cpp
 tmch::TuringMachine tm;
