@@ -9,12 +9,13 @@
 int main(){
     tmch::TuringMachine tm;
     evl::Evaluator e(&tm);
-    if (e.evalFile("example.txt"))
+    if (e.evalFile("example.txt")){
         tm.load("0111");
-    
-    do{
-        tm.step();
-    }while(tm.state == tmch::State::RUNNING);
-    std::cout << tm << std::endl;
-    return 0;
+        
+        do{
+            tm.step();
+        }while(tm.state == tmch::State::RUNNING);
+        std::cout << tm << std::endl;
+        return 0;
+    }
 }
