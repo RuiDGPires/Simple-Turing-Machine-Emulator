@@ -15,7 +15,7 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 ## Example
 The following Turing Machine accepts all input that starts with two '0's and has more than one '1' after them.
 
-![diagram](images/diagram.png)
+<center>![diagram](images/diagram.png)</center>
 
 Let's say we want to test the input 001111:
 
