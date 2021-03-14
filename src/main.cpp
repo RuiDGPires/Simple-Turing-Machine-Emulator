@@ -11,10 +11,7 @@ int main(){
     evl::Evaluator e(&tm);
     if (e.evalFile("example.txt")){
         tm.load("0111");
-        
-        do{
-            tm.step();
-        }while(tm.state == tmch::State::RUNNING);
+        tm.run();
         std::cout << tm << std::endl;
         return 0;
     }
