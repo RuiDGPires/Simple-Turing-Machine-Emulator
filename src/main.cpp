@@ -7,7 +7,14 @@
 
 
 int main(){
-    evl::Evaluator e;
-    e.evalFile("tests/fail1.conf");
+    tmch::TuringMachine tm;
+    evl::Evaluator e(&tm);
+    e.evalFile("example.txt");
+    tm.load("0111");
+    
+    do{
+        tm.step();
+    }while(tm.state == tmch::State::RUNNING);
+    std::cout << tm << std::endl;
     return 0;
 }

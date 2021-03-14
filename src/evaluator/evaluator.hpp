@@ -16,6 +16,17 @@ namespace evl{
         int line;
     };
 
+    struct MethodCall_t{
+        std::string str;
+        std::list<std::string> arguments;
+    };
+
+    struct Connection_t{
+        std::string from, to;
+        char in, out;
+        tmch::Dir dir;
+    };
+
     class FileReader{
         private:
             int line_n = 1;
@@ -38,14 +49,14 @@ namespace evl{
     
     class Evaluator {
         private:
-            tmch::TuringMachine tm;
+            tmch::TuringMachine *tm;
             Token current_tok;
             std::list<evl::Token> working_list;
 
             evl::FileReader f;
             std::list<evl::Token> getLine();
-
             
+
             void requestLine();
             bool accept(Symb s);
             void expect(Symb s);
@@ -61,9 +72,11 @@ namespace evl{
             void character();
             void direction();
 
+            void evalMethod();
+            void evalConnection();
 
         public:
-            Evaluator();
+            Evaluator(tmch::TuringMachine *tm);
             ~Evaluator();
             bool evalFile(std::string file_name);
     };

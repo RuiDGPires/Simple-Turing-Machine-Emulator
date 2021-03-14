@@ -8,7 +8,7 @@
 namespace tmch{
     enum State{ACCEPT, REJECT, HALT, RUNNING};
     enum Exception{STATE_EXISTS, NO_CONNECTION, RULE_EXISTS};
-    enum Dir{RIGHT, LEFT};
+    enum Dir{RIGHT, LEFT, STAY};
 
     class tmConfig{
         private:
@@ -50,7 +50,6 @@ namespace tmch{
             tmConfig config;
             std::map<std::string, tmState> states;
             std::string initial_state, accept_state, reject_state; 
-            bool stateExists(std::string key);
             bool reject_no_conn = false;
         public:
             State state = HALT;
@@ -61,6 +60,7 @@ namespace tmch{
             void setReject(std::string key);
             void addState(std::string name);
             tmState &getState(std::string key);
+            bool stateExists(std::string key);
             void load(std::string s);
             void step();
             void setRejectNoConnection(bool v);

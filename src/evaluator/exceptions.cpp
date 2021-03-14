@@ -19,3 +19,9 @@ evl::UnexpectedTokenException::UnexpectedTokenException(std::string str, int lin
 
 evl::UnexpectedTokenException::~UnexpectedTokenException(){}
 
+evl::InvalidMethodException::InvalidMethodException(std::string name){
+    this->name = name;
+}
+
+evl::InvalidMethodException::~InvalidMethodException(){}
+

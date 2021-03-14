@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 #if DEBUG
 void printList(std::list<evl::Token> l){
     for (auto const& i: l) {
@@ -11,7 +12,10 @@ void printList(std::list<evl::Token> l){
 }
 #endif
 
-evl::Evaluator::Evaluator(){}
+
+evl::Evaluator::Evaluator(tmch::TuringMachine *tm){
+    this->tm = tm;
+}
 
 evl::Evaluator::~Evaluator(){}
 
@@ -79,6 +83,10 @@ bool evl::Evaluator::evalFile(std::string file_name){
         return false;
     }catch(evl::UnexpectedTokenException e){
         std::cout << "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
+        f.closeFile();
+        return false;
+    }catch(evl::InvalidMethodException e){
+        std::cout << "Invalid Method: " << e.name << std::endl;
         f.closeFile();
         return false;
     }catch(evl::GenericException e){
