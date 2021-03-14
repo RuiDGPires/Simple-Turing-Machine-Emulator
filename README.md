@@ -71,7 +71,7 @@ tm.getState("q3").addRule('1', '1',tmch::RIGHT, "q3");
 tm.getState("q3").addRule(' ', ' ',tmch::RIGHT, "qac");
 
 
-tm.load("0111111");
+tm.load("001111");
 
 while(tm.state != tmch::ACCEPT && tm.state != tmch::REJECT){
     tm.step();
