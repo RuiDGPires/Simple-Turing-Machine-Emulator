@@ -7,6 +7,7 @@ This was made with the goal of practising C++ and for fun.
 - [x] Text evaluator for ease of use
 - [ ] Extensive testing
 - [ ] Some documentation and comments
+- [ ] Windows exporting
 
 ---
 ## Example
