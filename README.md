@@ -10,8 +10,46 @@ This was made with the goal of practising C++ and for fun.
 
 ---
 ## Example
+The following Turing Machine accepts all input that starts with two '0's and has more than one '1' after them.
 
-Explaining the following C++ code:
+![diagram](images/diagram.png)
+
+Let's say we want to test the input 001111:
+
+
+### Using the text evaluator
+The configuration file will be [example.txt](example.txt), and it follows the syntax described in [BNF.md](BNF.md):
+```
+init(q0);
+acc(qac);
+rej(qrej);
+
+rejectOthers();
+
+q0 ->
+    q1: 
+        0->0, r;
+
+q1 ->
+    q2:
+        0->0, r;
+
+q2 ->
+    q3:
+        1->1, r;
+
+q3 ->{
+    q3:
+        1->1, r;
+    qac:
+        ' '->' ', r;
+}
+```
+The test is simply run with the following command (linux terminal):
+>./tm example.txt 001111
+
+
+### Using the Turing Machine library directly
 ```cpp
 tmch::TuringMachine tm;
 tm.setAccept("qac");
