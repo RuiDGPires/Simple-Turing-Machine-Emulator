@@ -9,8 +9,8 @@
 int main(){
     tmch::TuringMachine tm;
     evl::Evaluator e(&tm);
-    e.evalFile("example.txt");
-    tm.load("0111");
+    if (e.evalFile("example.txt"))
+        tm.load("0111");
     
     do{
         tm.step();
