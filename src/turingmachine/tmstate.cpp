@@ -48,7 +48,7 @@ void tmch::tmState::accept(tmch::tmConfig *current_config){
         right.erase(right.begin());
         if (right.empty())
             right.push_back(' ');
-    }else{
+    }else if (r.dir == tmch::LEFT){
         std::string s;
         s.push_back(left[left.size() - 1]);
         left.pop_back();
