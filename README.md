@@ -12,6 +12,7 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 - [ ] Some documentation and comments
 - [x] Windows exporting
 - [ ] GUI?
+- [ ] Possibly add multi-thread processing
 
 ---
 ## Example
