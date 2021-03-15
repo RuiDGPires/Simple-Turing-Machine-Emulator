@@ -10,6 +10,7 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 - [ ] Extensive testing
 - [ ] Some documentation and comments
 - [x] Windows exporting
+- [ ] GUI?
 
 ---
 ## Example
