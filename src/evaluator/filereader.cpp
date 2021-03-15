@@ -1,6 +1,8 @@
 #include "evaluator.hpp"
 
+#if DEBUG
 #include <iostream>
+#endif
 
 evl::FileReader::FileReader(){}
 

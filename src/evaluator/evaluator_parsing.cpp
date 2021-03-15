@@ -1,6 +1,8 @@
 #include "evaluator.hpp"
 
+#if DEBUG
 #include <iostream>
+#endif
 
 evl::MethodCall_t token_method;
 evl::Connection_t token_conn;
