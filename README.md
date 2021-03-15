@@ -7,10 +7,11 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 
 ## To-do 
 - [x] Text evaluator for ease of use
+- [x] Windows exporting
 - [ ] Add comments to the text evaluator's syntax
 - [ ] Extensive testing
 - [ ] Some documentation and comments
-- [x] Windows exporting
+- [ ] Syntax highlighting for vscode
 - [ ] GUI?
 - [ ] Possibly add multi-thread processing
 

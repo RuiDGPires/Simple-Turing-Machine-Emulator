@@ -32,3 +32,6 @@ All whitespace that is not a terminal symbol is ignored
 
 <Symbol>                ::=  "|" | " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | ">" | "=" | "<" | "?" | "@" | "[" | "\" | "]" | "^" | "_" | "`" | "{" | "}" | "~"
 ```
+
+Comments are not described in the BNF above but are made using '#', commenting everything from there until the end of the line.
+Anything that is commented is ignored
