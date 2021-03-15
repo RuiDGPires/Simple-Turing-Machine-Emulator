@@ -10,6 +10,7 @@ namespace tmch{
     enum Exception{STATE_EXISTS, NO_CONNECTION, RULE_EXISTS};
     enum Dir{RIGHT, LEFT, STAY};
 
+    /* Class to hold a TM's current configuration */
     class tmConfig{
         private:
             std::string left, state, right;
@@ -25,6 +26,7 @@ namespace tmch{
             std::string toString() const;
     };
 
+    /* Class used to describe a State of a turing machine*/
     class tmState{
         private:
             struct Rule{
@@ -55,15 +57,44 @@ namespace tmch{
             State state = HALT;
             TuringMachine();
             ~TuringMachine();
+
+            /* Sets the initial state
+             * Add's a new state if it doenst already exist
+             */
             void setInitial(std::string key);
+
+            /*
+             * Sets the acceptance state of the tm
+             * This state shouldn't have any transitions defined
+             */
             void setAccept(std::string key);
+            /*
+             * Sets the rejection state of the tm
+             * This state shouldn't have any transitions defined
+             */
             void setReject(std::string key);
+            /*
+             * Adds a new state of the tm
+             */
             void addState(std::string name);
+            /*
+             * Get a state of the tm by it's name
+             */
             tmState &getState(std::string key);
             bool stateExists(std::string key);
+            /*
+             * Loads and input string
+             */
             void load(std::string s);
             void step();
+            /*
+             * Runs the TM until it reaches a final state
+             * The TM can get stun in an infinite loop depending on how it is configured
+             */
             void run();
+            /*
+             * If true, all undefined transitions will lead to the rejection state
+             */
             void setRejectNoConnection(bool v);
             std::string toString() const;
     };

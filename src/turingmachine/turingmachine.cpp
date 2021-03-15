@@ -61,8 +61,12 @@ void tmch::TuringMachine::step(){
     try{
         states.at(config.getState()).accept(&config);
     } catch(Exception e){
-        if (e == NO_CONNECTION)
-            state = reject_no_conn ? REJECT : HALT;
+        if (e == NO_CONNECTION){
+            if (reject_no_conn)
+                config.setState(reject_state);
+            else
+                state = HALT;
+        }
     }
     
     if (config.getState().compare(accept_state) == 0)

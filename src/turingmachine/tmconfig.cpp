@@ -1,5 +1,10 @@
 #include "turingmachine.hpp"
 
+/* 
+ * Turing Machine configuration
+ * A simple class to hold the current configuration of a Turing Machine
+ */
+
 tmch::tmConfig::tmConfig(){
 
 }
