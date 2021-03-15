@@ -8,7 +8,7 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 ## To-do 
 - [x] Text evaluator for ease of use
 - [x] Windows exporting
-- [ ] Add comments to the text evaluator's syntax
+- [x] Add comments to the text evaluator's syntax
 - [ ] Extensive testing
 - [ ] Some documentation and comments
 - [ ] Syntax highlighting for vscode
