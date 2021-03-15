@@ -22,7 +22,7 @@ test: $(OFILES) $(TEST_OFILES)
 	$(CC) -o test $(OFILES) $(TEST_OFILES) -lm
 
 clean:
-	rm -f  *.o src/*.o src/catch/*.o src/turingmachine/*.o $(NAME) $(NAME).exe
+	rm -f  *.o src/*.o src/catch/*.o src/turingmachine/*.o test $(NAME) $(NAME).exe 
 
 
 windows: $(DEPS) 
