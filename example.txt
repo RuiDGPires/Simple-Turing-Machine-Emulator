@@ -1,9 +1,12 @@
+# Set initial, acceptance and rejection states
 init(q0);
 acc(qac);
 rej(qrej);
 
+# Reject every transition that is not defined
 rejectOthers();
 
+# Describe transitions
 q0 ->
     q1: 
         0->0, r;

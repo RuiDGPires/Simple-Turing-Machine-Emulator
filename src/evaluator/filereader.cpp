@@ -93,8 +93,10 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                     state = evl::FileReader::ReadState::SYMBOL;
                 }else if (line[i] == ' ' || line[i] == '\0' || line[i] == '\n' || line[i] == '\r' || line[i] == '\t')
                     i++;
+                else if (line[i] == '#')
+                    return ret;
                 else
-                  throw ParseFailException(n);
+                    throw ParseFailException(n);
                 break;
             case evl::FileReader::ReadState::NAME:
                 if (!(isLetter(line[i]) || isNumber(line[i]))){
