@@ -1,6 +1,6 @@
-#include "turingmachine/turingmachine.hpp"
 #include <iostream>
 
+#include "turingmachine/turingmachine.hpp"
 #include "evaluator/evaluator.hpp"
 
 #define PRINT_TITLE() (std::cout << "Simple Turing Machine Emulator v0.1" <<std::endl, (void) 0)

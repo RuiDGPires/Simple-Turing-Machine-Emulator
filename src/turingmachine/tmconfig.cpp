@@ -1,7 +1,5 @@
 #include "turingmachine.hpp"
 
-
-
 tmch::tmConfig::tmConfig(){
 
 }

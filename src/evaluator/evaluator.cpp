@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-
 #if DEBUG
 void printList(std::list<evl::Token> l){
     for (auto const& i: l) {
