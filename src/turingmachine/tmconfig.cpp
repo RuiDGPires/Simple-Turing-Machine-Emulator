@@ -1,4 +1,4 @@
-#include "turingmachine.hpp"
+#include "include/turingmachine.hpp"
 
 /* 
  * Turing Machine configuration

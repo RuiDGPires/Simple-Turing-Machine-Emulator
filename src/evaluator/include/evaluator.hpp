@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 
-#include "../turingmachine/turingmachine.hpp"
+#include "../../turingmachine/include/turingmachine.hpp"
 #include "exceptions.hpp"
 
 namespace evl{

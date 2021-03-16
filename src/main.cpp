@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "turingmachine/turingmachine.hpp"
-#include "evaluator/evaluator.hpp"
+#include "turingmachine/include/turingmachine.hpp"
+#include "evaluator/include/evaluator.hpp"
 
 #define PRINT_TITLE() (std::cout << "Simple Turing Machine Emulator v1.0" <<std::endl, (void) 0)
 #define PRINT_USAGE() (std::cout << "Usage:\n\ttm <config file> <input>" << std::endl, (void) 0)

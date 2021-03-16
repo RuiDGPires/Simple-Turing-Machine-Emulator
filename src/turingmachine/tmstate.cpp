@@ -1,4 +1,4 @@
-#include "turingmachine.hpp"
+#include "include/turingmachine.hpp"
 
 #if DEBUG
 #include <iostream>
