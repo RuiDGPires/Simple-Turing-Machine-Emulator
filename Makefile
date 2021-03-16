@@ -38,4 +38,7 @@ clean:
 
 
 windows: $(DEPS) 
-	$(WCC) $(LWX) $(CWX) -o $(NAME).exe $(CPPFILES) $(MAIN_CFILES) -lm --static -static-libstdc++ 
+	$(WCC) -o $(NAME).exe $(CPPFILES) $(MAIN_CFILES) -lm --static -static-libstdc++ 
+
+wgui: $(DEPS) $(GUI_DEPS)
+	$(WCC) -o $(NAME).exe $(CPPFILES) $(GUI_CPPFILES) -lm --static -static-libstdc++  $(CWX) $(LWX) 

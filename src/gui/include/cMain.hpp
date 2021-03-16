@@ -10,6 +10,8 @@ class cMain : public wxFrame{
     public:
         cMain();
         ~cMain();
+    public:
+        wxTextCtrl *txtbox_input;
 };
 
 #endif
