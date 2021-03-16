@@ -12,6 +12,7 @@ class cMain : public wxFrame{
         ~cMain();
     public:
         wxTextCtrl *txtbox_input;
+        wxMenuBar *menu_bar;
 };
 
 #endif
