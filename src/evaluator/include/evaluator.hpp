@@ -28,12 +28,14 @@ namespace evl{
     };
 
     class FileReader{
+        private: 
+            enum ReadState{NONE, NAME, SYMBOL, CHAR};
         private:
             int line_n = 1;
             bool is_at_end = false;
-            enum ReadState{NONE, NAME, SYMBOL, CHAR};
             std::string file_name;
             std::ifstream file;
+        private:
             std::list<Token> parseLine(std::string line, int n);
             std::list<Token> parseLine(std::string line, int size, int n);
         public:
@@ -52,11 +54,11 @@ namespace evl{
             tmch::TuringMachine *tm;
             Token current_tok;
             std::list<evl::Token> working_list;
-
             evl::FileReader f;
+            
+        private:
             std::list<evl::Token> getLine();
             
-
             void requestLine();
             bool accept(Symb s);
             void expect(Symb s);
