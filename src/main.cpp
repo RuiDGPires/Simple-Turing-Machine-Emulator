@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
         if (e.evalFile(argv[1])){
             tm.load(argv[2]);
             tm.run();
-            std::cout << tm.toString() << std::endl;
+            std::cout << tm << std::endl;
             return 0;
         }
     }catch(evl::GenericException e){
