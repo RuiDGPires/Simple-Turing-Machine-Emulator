@@ -5,49 +5,50 @@ The following Turing Machine accepts all input that starts with two '0's and has
 
 
 Let's say we want to test the input "001111". There are several ways to do this.
-1. [Using the text evaluator](#evl)
-2. [Using the library directly](#lib)
-
----
-<a name="evl"></a>
-## Using the text evaluator
+1. [Using the GUI app](#gui)
+2. [Using the command line app](#cmd)
+3. [Using the text evaluator library](#evl)
+4. [Using the Turing Machine library directly](#lib)
 
 The configuration file will be [example.conf](example.conf), and it follows the syntax described in [BNF.md](BNF.md):
 
-```
-init(q0);
-acc(qac);
-rej(qrej);
+<a name="gui"></a>
+## Using the GUI
+    (Under construction)
 
-rejectOthers();
+<a name="cmd"></a>
+## Using the command line app
 
-q0 ->
-    q1: 
-        0->0, r;
-
-q1 ->
-    q2:
-        0->0, r;
-
-q2 ->
-    q3:
-        1->1, r;
-
-q3 ->{
-    q3:
-        1->1, r;
-    qac:
-        ' '->' ', r;
-}
-```
 The test is simply run with the following command (linux terminal):
 >./tm example.conf 001111
+>
 
+---
+<a name="evl"></a>
+## Using the text evaluator library
+
+```cpp
+#include "turingmachine/include/turingmachine.hpp"
+#include "evaluator/include/evaluator.hpp"
+
+(...)
+
+tmch::TuringMachine tm = tmch::TuringMachine();
+evl::Evaluator e(&tm);
+if (e.evalFile(example.conf)){
+    tm.load("001111");
+    tm.run();
+}
+```
 ---
 <a name="lib"></a>
 ## Using the Turing Machine library directly
 
 ```cpp
+#include "turingmachine/include/turingmachine.hpp"
+
+(...)
+
 tmch::TuringMachine tm;
 tm.setAccept("qac");
 tm.setReject("qrej");
