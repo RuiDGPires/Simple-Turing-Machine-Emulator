@@ -26,7 +26,7 @@ Let's say we want to test the input 001111:
 
 ---
 ### Using the text evaluator
-The configuration file will be [example.txt](example.txt), and it follows the syntax described in [BNF.md](BNF.md):
+The configuration file will be [example.conf](example.conf), and it follows the syntax described in [BNF.md](BNF.md):
 ```
 init(q0);
 acc(qac);
@@ -54,7 +54,7 @@ q3 ->{
 }
 ```
 The test is simply run with the following command (linux terminal):
->./tm example.txt 001111
+>./tm example.conf 001111
 
 ---
 ### Using the Turing Machine library directly
