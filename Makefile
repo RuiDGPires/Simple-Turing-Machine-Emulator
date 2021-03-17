@@ -25,10 +25,10 @@ GUI_OFILES = src/gui/cApp.o src/gui/cMain.o
 	$(CC) -c $(LWX) -o $@ $< $(LFLAGS)  
 
 all: $(OFILES) $(MAIN_OFILES)
-	$(CC) $(OFILES) $(MAIN_OFILES) -o $(NAME) -lm 
+	$(CC) -Wall  $(OFILES) $(MAIN_OFILES) -o $(NAME) -lm 
 
 gui: $(OFILES) $(GUI_DEPS)
-	$(CC) $(OFILES) $(GUI_CPPFILES) $(CWX) $(LWX) -o $(NAME)_gui
+	$(CC) -Wall  $(OFILES) $(GUI_CPPFILES) $(CWX) $(LWX) -o $(NAME)_gui
 
 test: $(OFILES) $(TEST_OFILES)
 	$(CC) $(CWX) -o test $(OFILES) $(TEST_OFILES) -lm 
