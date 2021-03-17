@@ -38,7 +38,7 @@ evl::Evaluator e(&tm);
 if (e.evalFile(example.conf)){
     tm.load("001111");
     tm.run();
-    std::cout << tm.toString() << std::endl;
+    std::cout << tm << std::endl;
 }
 ```
 ---
