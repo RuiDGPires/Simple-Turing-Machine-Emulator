@@ -9,7 +9,8 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 - [x] Text evaluator for ease of use
 - [x] Windows exporting
 - [x] Add comments to the text evaluator's syntax
-- [ ] GUI
+- [x] GUI
+- [ ] Improve GUI
 - [ ] System for importing other configs inside a config file
 - [ ] Re-writing the Makefile
 - [ ] Extensive testing
