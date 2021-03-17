@@ -95,6 +95,7 @@ namespace tmch{
              * The TM can get stun in an infinite loop depending on how it is configured
              */
             void run();
+            void clear();
             /*
              * If true, all undefined transitions will lead to the rejection state
              */

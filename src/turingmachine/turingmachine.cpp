@@ -93,6 +93,15 @@ void tmch::TuringMachine::setRejectNoConnection(bool v){
     reject_no_conn = v;
 }
 
+void tmch::TuringMachine::clear(){
+    states.clear();
+    initial_state.clear();
+    accept_state.clear();
+    reject_state.clear();
+    reject_no_conn = false;
+    this->reset();
+}
+
 std::string tmch::TuringMachine::toString() const{
     std::string s;
     switch(state){  

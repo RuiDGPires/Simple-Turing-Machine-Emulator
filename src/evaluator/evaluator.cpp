@@ -69,7 +69,7 @@ bool evl::Evaluator::evalFile(std::string file_name){
     f.setFile(file_name);
     std::list<evl::Token> line;
     f.openFile();
-
+    tm->clear();
     try{
         configuration();
     }catch(evl::ParseFailException e){
@@ -98,7 +98,7 @@ bool evl::Evaluator::evalFile(std::string file_name){
             default:
                 throw e;
         }
-    }
+    } 
     tm->reset();
     f.closeFile();
     return true;
