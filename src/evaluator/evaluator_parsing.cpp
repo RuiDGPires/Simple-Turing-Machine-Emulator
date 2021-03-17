@@ -4,10 +4,6 @@
 #include <iostream>
 #endif
 
-evl::MethodCall_t token_method;
-evl::Connection_t token_conn;
-
-
 
 void evl::Evaluator::nextSym(){
     if (working_list.empty()){
@@ -38,6 +34,9 @@ void evl::Evaluator::configuration(){
 
 
 bool evl::Evaluator::expression(){
+    evl::MethodCall_t token_method;
+    evl::Connection_t token_conn;
+
     token_method.str = current_tok.str;
     token_conn.from = current_tok.str;
     token_method.arguments.clear();
@@ -53,15 +52,15 @@ bool evl::Evaluator::expression(){
             expect(RPAREN);
         }
         expect(SEMICLN);
-        evalMethod();
+        evalMethod(&token_method);
     }else{
         expect(LINK);
         if (accept(LBRACK)){
             do{
-                connection();
+                connection(&token_conn);
             }while(!accept(RBRACK));
         }else{
-            connection();
+            connection(&token_conn);
         }
     }
     
@@ -69,29 +68,29 @@ bool evl::Evaluator::expression(){
 }
 
 
-void evl::Evaluator::connection(){
-    token_conn.to = current_tok.str;
+void evl::Evaluator::connection(Connection_t *t){
+    t->to = current_tok.str;
     identifier();
     expect(CLN);
     if (accept(LBRACK)){
         do{
-            rule();
+            rule(t);
         }while(!accept(RBRACK));
     }else{
-        rule();
+        rule(t);
     }
 }   
 
-void evl::Evaluator::rule(){
-    token_conn.in = current_tok.str[0];
+void evl::Evaluator::rule(evl::Connection_t *t){
+    t->in = current_tok.str[0];
     character();
     expect(LINK);
-    token_conn.out = current_tok.str[0];
+    t->out = current_tok.str[0];
     character();
     expect(COMMA);
-    direction();
+    direction(t);
     expect(SEMICLN);
-    evalConnection();
+    evalConnection(t);
 }   
 
 void evl::Evaluator::identifier(){ 
@@ -104,22 +103,22 @@ void evl::Evaluator::character(){
     expect(NAME);
 }
 
-void evl::Evaluator::direction(){
+void evl::Evaluator::direction(evl::Connection_t *t){
     if (current_tok.str.length() != 1 || current_tok.symb != NAME)
         throw UnexpectedTokenException(current_tok.str, current_tok.line);
 
     switch(current_tok.str[0]){
         case 'r':
         case 'R':
-            token_conn.dir = tmch::Dir::RIGHT;
+            t->dir = tmch::Dir::RIGHT;
             break;
         case 'l':
         case 'L':
-            token_conn.dir = tmch::Dir::LEFT;
+            t->dir = tmch::Dir::LEFT;
             break;
         case 's':
         case 'S':
-            token_conn.dir = tmch::Dir::STAY;
+            t->dir = tmch::Dir::STAY;
             break;
         default:
             throw UnexpectedTokenException(current_tok.str, current_tok.line);
@@ -128,30 +127,30 @@ void evl::Evaluator::direction(){
     nextSym();
 }
 
-void evl::Evaluator::evalMethod(){
-    if (token_method.str.compare("init") == 0){
-        if (token_method.arguments.size() != 1)
+void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
+    if (t->str.compare("init") == 0){
+        if (t->arguments.size() != 1)
             throw InvalidMethodException("init(state) takes 1 argument");
-        tm->setInitial(*(token_method.arguments.begin()));
-    }else if (token_method.str.compare("acc") == 0){
-        if (token_method.arguments.size() != 1)
+        tm->setInitial(*(t->arguments.begin()));
+    }else if (t->str.compare("acc") == 0){
+        if (t->arguments.size() != 1)
             throw InvalidMethodException("acc(state) takes 1 argument");
-        tm->setAccept(*(token_method.arguments.begin()));
-    }else if (token_method.str.compare("rej") == 0){
-        if (token_method.arguments.size() != 1)
+        tm->setAccept(*(t->arguments.begin()));
+    }else if (t->str.compare("rej") == 0){
+        if (t->arguments.size() != 1)
             throw InvalidMethodException("rej(state) takes 1 argument");
-        tm->setReject(*(token_method.arguments.begin()));
-    }else if (token_method.str.compare("rejectOthers") == 0){
-        if (!token_method.arguments.empty())
+        tm->setReject(*(t->arguments.begin()));
+    }else if (t->str.compare("rejectOthers") == 0){
+        if (!t->arguments.empty())
             throw InvalidMethodException("rejectOthers() takes no arguments");
         tm->setRejectNoConnection(true);
     }else
-        throw InvalidMethodException("Unkown method: " + token_method.str);
+        throw InvalidMethodException("Unkown method: " + t->str);
 }
-void evl::Evaluator::evalConnection(){
-    if (!tm->stateExists(token_conn.from))
-        tm->addState(token_conn.from);
-    if (!tm->stateExists(token_conn.to))
-        tm->addState(token_conn.to);
-    tm->getState(token_conn.from).addRule(token_conn.in, token_conn.out, token_conn.dir, token_conn.to);
+void evl::Evaluator::evalConnection(evl::Connection_t *t){
+    if (!tm->stateExists(t->from))
+        tm->addState(t->from);
+    if (!tm->stateExists(t->to))
+        tm->addState(t->to);
+    tm->getState(t->from).addRule(t->in, t->out, t->dir, t->to);
 }

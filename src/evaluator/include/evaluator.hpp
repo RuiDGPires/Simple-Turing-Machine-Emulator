@@ -68,14 +68,14 @@ namespace evl{
             void configuration();
             bool expression();
             bool arguments();
-            void connection();
-            void rule();
+            void connection(Connection_t *t);
+            void rule(Connection_t *t);
             void identifier();
             void character();
-            void direction();
+            void direction(Connection_t *t);
 
-            void evalMethod();
-            void evalConnection();
+            void evalMethod(MethodCall_t *t);
+            void evalConnection(Connection_t *t);
 
         public:
             Evaluator(tmch::TuringMachine *tm);
