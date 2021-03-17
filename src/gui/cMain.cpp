@@ -17,9 +17,6 @@ wxEND_EVENT_TABLE()
 cMain::cMain() :wxFrame(nullptr, wxID_ANY, "Turing Machine Emulator", wxDefaultPosition, wxDefaultSize){
     evl::Evaluator ev(&tm);
     
-    //if (!ev.evalFile("example.txt"))
-        //exit(1);
-    
     this->SetMinSize(wxSize(640,480));
     
     /* Buttons */
