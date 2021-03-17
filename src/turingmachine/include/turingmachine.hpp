@@ -38,7 +38,9 @@ namespace tmch{
             std::string name;
             std::map<char, Rule> mapping;
 
+        private:
             bool hasMapping(char key);
+            
         public:
             tmState(std::string name);
             ~tmState();

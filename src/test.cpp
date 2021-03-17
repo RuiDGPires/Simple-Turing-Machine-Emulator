@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch/catch.hpp"
-#include "evaluator/evaluator.hpp"
+#include "evaluator/include/evaluator.hpp"
 
 #include <iostream>
 
