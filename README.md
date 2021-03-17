@@ -9,9 +9,10 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 - [x] Text evaluator for ease of use
 - [x] Windows exporting
 - [x] Add comments to the text evaluator's syntax
+- [ ] GUI
+- [ ] Re-writing the Makefile
 - [ ] Extensive testing
 - [ ] Syntax highlighting for vscode
-- [ ] GUI?
 - [ ] Possibly add multi-thread processing
 
 ---
