@@ -56,6 +56,9 @@ void tmch::TuringMachine::load(std::string s){
 }
 
 void tmch::TuringMachine::step(){
+    if (state == ACCEPT || state == REJECT)
+        return;
+        
     state = RUNNING;
 
     try{
