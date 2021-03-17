@@ -47,12 +47,17 @@ void tmch::TuringMachine::addState(std::string name){
     states.insert(std::pair<std::string, tmch::tmState>(name,tmState(name)));
 }
 
-void tmch::TuringMachine::load(std::string s){
-    state = HALT;
+void tmch::TuringMachine::reset(){
     config.setLeft(" ");
+    config.setRight(" ");
+    config.setState(initial_state);
+}
+
+void tmch::TuringMachine::load(std::string s){
+    this->reset();
+    state = HALT;
     s.push_back(' ');
     config.setRight(s);
-    config.setState(initial_state);
 }
 
 void tmch::TuringMachine::step(){

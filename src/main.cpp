@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
     evl::Evaluator e(tm);
     try{
         if (e.evalFile(argv[1])){
-            tm->load(argv[2]);
+            //tm->load(argv[2]);
             tm->run();
             std::cout << tm->toString() << std::endl;
             return 0;

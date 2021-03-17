@@ -84,6 +84,7 @@ namespace tmch{
              */
             tmState &getState(std::string key);
             bool stateExists(std::string key);
+            void reset();
             /*
              * Loads and input string
              */
