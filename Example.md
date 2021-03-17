@@ -3,11 +3,17 @@ The following Turing Machine accepts all input that starts with two '0's and has
 
 ![diagram](images/diagram.png)
 
-Let's say we want to test the input 001111:
+
+Let's say we want to test the input "001111". There are several ways to do this.
+1. [Using the text evaluator](#evl)
+2. [Using the library directly](#lib)
 
 ---
+<a name="evl"></a>
 ## Using the text evaluator
+
 The configuration file will be [example.conf](example.conf), and it follows the syntax described in [BNF.md](BNF.md):
+
 ```
 init(q0);
 acc(qac);
@@ -38,7 +44,9 @@ The test is simply run with the following command (linux terminal):
 >./tm example.conf 001111
 
 ---
+<a name="evl"></a>
 ## Using the Turing Machine library directly
+
 ```cpp
 tmch::TuringMachine tm;
 tm.setAccept("qac");
