@@ -44,7 +44,7 @@ The test is simply run with the following command (linux terminal):
 >./tm example.conf 001111
 
 ---
-<a name="evl"></a>
+<a name="lib"></a>
 ## Using the Turing Machine library directly
 
 ```cpp
