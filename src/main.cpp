@@ -13,13 +13,13 @@ int main(int argc, char *argv[]){
         PRINT_USAGE();
         return 0;
     }
-    tmch::TuringMachine *tm = new tmch::TuringMachine();
-    evl::Evaluator e(tm);
+    tmch::TuringMachine tm = tmch::TuringMachine();
+    evl::Evaluator e(&tm);
     try{
         if (e.evalFile(argv[1])){
-            tm->load(argv[2]);
-            tm->run();
-            std::cout << tm->toString() << std::endl;
+            tm.load(argv[2]);
+            tm.run();
+            std::cout << tm.toString() << std::endl;
             return 0;
         }
     }catch(evl::GenericException e){
@@ -28,8 +28,6 @@ int main(int argc, char *argv[]){
             std::cout << "An error occured opening config file: " << argv[1] << std::endl;
             PRINT_USAGE();
         }
-    }
-    delete tm;
-    
+    }   
     
 }
