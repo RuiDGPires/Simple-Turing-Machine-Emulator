@@ -55,7 +55,7 @@ void cMain::OnButtonStepClicked(wxCommandEvent &evt){
 }
 
 void cMain::OnMenuOpenClicked(wxCommandEvent &evt){
-    wxFileDialog dlg(this, "Open config file", "", "", ".txt files (*.txt)|*.txt| .conf files (*.conf)|*.conf", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+    wxFileDialog dlg(this, "Open config file", "", "", "all (*.conf, *txt)|*.conf;*.txt|.conf files (*.conf)|*.conf|.txt files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
     if (dlg.ShowModal() == wxID_OK){
         evl::Evaluator ev(&tm);
         ev.evalFile(std::string(dlg.GetPath().c_str())); 
