@@ -86,16 +86,8 @@ void tmch::TuringMachine::setRejectNoConnection(bool v){
 }
 
 std::string tmch::TuringMachine::toString() const{
-    return config.toString();
-}
-
-tmch::tmState &tmch::TuringMachine::getState(std::string key){
-    return states.at(key);
-}
-
-std::ostream& operator<< (std::ostream &out, tmch::TuringMachine const &tm){
     std::string s;
-    switch(tm.state){  
+    switch(state){  
         case tmch::RUNNING:
             s = "Running";
             break;
@@ -110,7 +102,15 @@ std::ostream& operator<< (std::ostream &out, tmch::TuringMachine const &tm){
             s = "Halt";
             break;
     }
-    out << tm.toString() + " >> " + s;
+    return config.toString() + " >> " + s; 
+}
+
+tmch::tmState &tmch::TuringMachine::getState(std::string key){
+    return states.at(key);
+}
+
+std::ostream& operator<< (std::ostream &out, tmch::TuringMachine const &tm){
+    out << tm.toString();
     return out;
 }
 
