@@ -8,10 +8,10 @@
 TEST_CASE("Text syntax evaluation tests" ,"[Syntax]"){
     //std::cout.setstate(std::ios_base::failbit);
     evl::Evaluator e;
-    REQUIRE(e.evalFile("tests/pass1.conf"));
-    REQUIRE(e.evalFile("tests/pass2.conf"));
-    REQUIRE(e.evalFile("tests/pass3.conf"));
-    REQUIRE(!e.evalFile("tests/fail1.conf"));
-    REQUIRE(!e.evalFile("tests/fail2.conf"));
-    REQUIRE(!e.evalFile("tests/fail3.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass1.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass2.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass3.conf"));
+    REQUIRE(!e.evalFile("tests/syntax/fail1.conf"));
+    REQUIRE(!e.evalFile("tests/syntax/fail2.conf"));
+    REQUIRE(!e.evalFile("tests/syntax/fail3.conf"));
 }
