@@ -61,7 +61,7 @@ void tmch::TuringMachine::load(std::string s){
 }
 
 void tmch::TuringMachine::step(){
-    if (state == ACCEPT || state == REJECT)
+    if (state == ACCEPT || state == REJECT || initial_state.compare("") == 0)
         return;
         
     state = RUNNING;
