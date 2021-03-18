@@ -1,5 +1,5 @@
-apt install build-essential
-apt install libgtk2.0-dev
+sudo apt install build-essential
+sudo apt install libgtk2.0-dev
 
 wget "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.4/wxWidgets-3.1.4.tar.bz2"
 
