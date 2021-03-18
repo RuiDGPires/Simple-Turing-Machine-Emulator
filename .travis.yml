@@ -1,6 +1,6 @@
 language: cpp
 install: ./install-dependencies.sh
-script: make gui
+script: make
 
 addons:
   apt:
