@@ -18,4 +18,4 @@ Testing is done using [catch](https://github.com/catchorg/Catch2).
 - [ ] Possibly add multi-thread processing
 
 ## Example
-[Here](Example.md) example of how to use this project
+[Here](Example.md) is an example of how to use this project
