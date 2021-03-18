@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-enum{BTN_LOAD, BTN_RUN, BTN_STEP, TXTBOX, LABEL};
-enum{MENU_OPEN};
+enum{MAIN_FRAME=0};
+enum{BTN_LOAD=100, BTN_RUN, BTN_STEP, TXTBOX, LABEL};
+enum{MENU_OPEN=200};
 
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
@@ -11,14 +12,15 @@ wxBEGIN_EVENT_TABLE(cMain, wxFrame)
     EVT_BUTTON(BTN_STEP, cMain::OnButtonStepClicked)
     EVT_BUTTON(BTN_LOAD, cMain::OnButtonLoadClicked)
     EVT_MENU(MENU_OPEN, cMain::OnMenuOpenClicked)
+    EVT_SIZE(cMain::OnResizing)
 wxEND_EVENT_TABLE()
 
 
-cMain::cMain() :wxFrame(nullptr, wxID_ANY, "Turing Machine Emulator", wxDefaultPosition, wxSize(640,480)){
+cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaultPosition, wxSize(640,480)){
     evl::Evaluator ev(&tm);
     wxSize btn_size(120,50);
     this->SetMinSize(wxSize(640,480));
-    
+    this->SetSize(wxSize(640,480));
     /* Sizers */
     main_sizer = new wxBoxSizer(wxVERTICAL);
     label_sizer = new wxBoxSizer(wxHORIZONTAL);
@@ -63,7 +65,9 @@ cMain::cMain() :wxFrame(nullptr, wxID_ANY, "Turing Machine Emulator", wxDefaultP
     main_sizer->Add(textbox_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
     main_sizer->Add(buttons_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
 
+    
     SetSizer(main_sizer);
+    
 }
 
 cMain::~cMain(){}
@@ -90,4 +94,9 @@ void cMain::OnMenuOpenClicked(wxCommandEvent &evt){
         evl::Evaluator ev(&tm);
         ev.evalFile(std::string(dlg.GetPath().c_str())); 
     }
+}
+
+void cMain::OnResizing(wxSizeEvent &evt){
+    evt.Skip();
+    this->SetMinClientSize(wxSize(640, 480));
 }

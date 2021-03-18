@@ -23,6 +23,7 @@ class cMain : public wxFrame{
 
         void OnMenuOpenClicked(wxCommandEvent &evt);
         
+        void OnResizing(wxSizeEvent &evt);
         wxDECLARE_EVENT_TABLE();
     public:
         wxBoxSizer *main_sizer;
