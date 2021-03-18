@@ -79,7 +79,6 @@ void tmch::TuringMachine::load(std::string s){
     if (s[size-1] != ' ')
         s.push_back(' ');
     
-    std::cout << "|" + s + "|" << std::endl;
     config.setRight(s);
 }
 
