@@ -7,7 +7,7 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - g++-9.3
+    - g++-9
 branches:
   only:
     - main
