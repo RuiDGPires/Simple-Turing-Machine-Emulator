@@ -1,6 +1,4 @@
 # Simple-Turing-Machine-Emulator
-[![Build Status](https://travis-ci.com/RuiDGPires/Simple-Turing-Machine-Emulator.svg?branch=main)](https://travis-ci.com/RuiDGPires/Simple-Turing-Machine-Emulator)
-
 
 A simple turing machine emulator
 
