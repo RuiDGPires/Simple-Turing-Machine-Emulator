@@ -1,14 +1,15 @@
 language: cpp
-install: ./install-dependencies.sh
-script: make gui
+
+os:
+- linux
 
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+    - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
-    - gcc-4.8
-    - g++-4.8
-branches:
-  only:
-    - main
+    - gcc-9
+    - g++-9
+
+install: ./install-dependencies.sh
+script: make
