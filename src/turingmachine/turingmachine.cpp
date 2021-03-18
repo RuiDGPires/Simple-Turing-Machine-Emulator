@@ -13,6 +13,10 @@ tmch::TuringMachine::TuringMachine(){
 tmch::TuringMachine::~TuringMachine(){   
 }
 
+tmch::tmConfig &tmch::TuringMachine::getConfig(){
+    return this->config;
+}
+
 bool tmch::TuringMachine::stateExists(std::string key){
     if (key.compare(initial_state) == 0)
         return true;
@@ -55,8 +59,27 @@ void tmch::TuringMachine::reset(){
 
 void tmch::TuringMachine::load(std::string s){
     this->reset();
+    int size = s.size();
     state = HALT;
-    s.push_back(' ');
+    
+    /* Erase excess blank space */
+    if (size >= 1){
+        if (s[0] == ' ')
+            while(size > 1 && s[1]==' '){
+                s.erase(1,1);
+                size--;
+            }
+
+
+        if (s[size-1] == ' ')
+            while(size > 1 && s[size-2] == ' ')
+                s.erase(--size,1);
+        
+    }
+    if (s[size-1] != ' ')
+        s.push_back(' ');
+    
+    std::cout << "|" + s + "|" << std::endl;
     config.setRight(s);
 }
 
