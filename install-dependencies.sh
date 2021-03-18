@@ -1,5 +1,9 @@
 #!/bin/sh
 
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+sudo apt install gcc-9
+
 #sudo apt install build-essential
 #sudo apt install libgtk2.0-dev
 
