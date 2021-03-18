@@ -12,6 +12,9 @@
 class cMain : public wxFrame{
     private:
         tmch::TuringMachine tm;
+
+    private:
+        void setLabels(tmch::TuringMachine &t);
     public:
         cMain();
         ~cMain();
@@ -39,7 +42,9 @@ class cMain : public wxFrame{
         wxButton *btn_load;
 
         wxMenuBar *menu_bar;
-        wxStaticText *label1;
+        wxStaticText *left_label;
+        wxStaticText *mid_label;
+        wxStaticText *right_label;
         
 };
 

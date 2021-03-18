@@ -15,12 +15,12 @@ wxBEGIN_EVENT_TABLE(cMain, wxFrame)
     EVT_SIZE(cMain::OnResizing)
 wxEND_EVENT_TABLE()
 
+#define DEFAULT_MAIN_SIZE wxSize(640,480)
 
-cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaultPosition, wxSize(640,480)){
+cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaultPosition, DEFAULT_MAIN_SIZE){
     evl::Evaluator ev(&tm);
     wxSize btn_size(120,50);
-    this->SetMinSize(wxSize(640,480));
-    this->SetSize(wxSize(640,480));
+    this->Maximize();
     /* Sizers */
     main_sizer = new wxBoxSizer(wxVERTICAL);
     label_sizer = new wxBoxSizer(wxHORIZONTAL);
@@ -29,10 +29,14 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     buttons_sizer = new wxBoxSizer(wxHORIZONTAL);
     textbox_sizer = new wxBoxSizer(wxHORIZONTAL);
 
-    label1 = new wxStaticText(this, LABEL, "Output", wxPoint(0,0), wxSize(620,120), wxALIGN_CENTER_HORIZONTAL);
+    left_label = new wxStaticText(this, LABEL, "", wxPoint(0,0), wxSize(400,120), wxALIGN_CENTER_HORIZONTAL);
+    mid_label = new wxStaticText(this, LABEL, "Output", wxPoint(0,0), wxSize(10,120), wxALIGN_CENTER_HORIZONTAL);
+    right_label = new wxStaticText(this, LABEL, "", wxPoint(0,0), wxSize(400,120), wxALIGN_CENTER_HORIZONTAL);
     
     wxFont label_fnt = wxFont(60, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-    label1->SetFont(label_fnt);
+    left_label->SetFont(label_fnt);
+    mid_label->SetFont(label_fnt);
+    right_label->SetFont(label_fnt);
 
     /* Buttons */
     txtbox_input = new wxTextCtrl(this, TXTBOX, "", wxPoint(0,0), wxSize(200,50));
@@ -52,8 +56,10 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     menuFile->Append(MENU_OPEN, "Open");
     menu_bar->Append(menuFile,"File");
 
-    label_sizer->AddStretchSpacer();
-    label_sizer->Add(label1, 0, wxALIGN_BOTTOM,40);
+    //label_sizer->AddStretchSpacer();
+    label_sizer->Add(left_label, 0, wxALIGN_BOTTOM);
+    label_sizer->Add(mid_label, 0, wxALIGN_BOTTOM);
+    label_sizer->Add(right_label, 0, wxALIGN_BOTTOM);
 
     textbox_sizer->Add(txtbox_input, 0, wxALIGN_TOP,40);
 
@@ -72,20 +78,33 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
 
 cMain::~cMain(){}
 
+void cMain::setLabels(tmch::TuringMachine &tm){
+    std::string s = tm.getConfig().getRight();
+    s.erase(s.begin());
+   
+
+    left_label->SetLabelText(tm.getConfig().getLeft());
+    mid_label->SetLabelText(tm.getConfig().getRight()[0]);
+    right_label->SetLabelText(s);
+}
+
+
+
+/* Events */
 void cMain::OnButtonLoadClicked(wxCommandEvent &evt){
     tm.load(std::string(txtbox_input->GetValue().mb_str()));
-    label1->SetLabelText(tm.toString());
+    setLabels(tm);
 }
 
 void cMain::OnButtonRunClicked(wxCommandEvent &evt){
     tm.load(std::string(txtbox_input->GetValue().mb_str()));
     tm.run();
-    label1->SetLabelText(tm.toString());
+    setLabels(tm);
 }
 
 void cMain::OnButtonStepClicked(wxCommandEvent &evt){
     tm.step();
-    label1->SetLabelText(tm.toString());
+    setLabels(tm);
 }
 
 void cMain::OnMenuOpenClicked(wxCommandEvent &evt){
@@ -98,5 +117,5 @@ void cMain::OnMenuOpenClicked(wxCommandEvent &evt){
 
 void cMain::OnResizing(wxSizeEvent &evt){
     evt.Skip();
-    this->SetMinClientSize(wxSize(640, 480));
+    this->SetMinClientSize(DEFAULT_MAIN_SIZE);
 }
