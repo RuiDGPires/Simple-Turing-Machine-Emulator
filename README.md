@@ -1,6 +1,8 @@
 # Simple-Turing-Machine-Emulator
-A simple turing machine emulator
 [![Build Status](https://travis-ci.com/RuiDGPires/Simple-Turing-Machine-Emulator.svg?branch=main)](https://travis-ci.com/RuiDGPires/Simple-Turing-Machine-Emulator)
+
+
+A simple turing machine emulator
 
 This was made with the goal of practising C++ and for fun.
 
