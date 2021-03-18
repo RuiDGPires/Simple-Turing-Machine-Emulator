@@ -59,12 +59,12 @@ namespace tmch{
             State state = HALT;
             TuringMachine();
             ~TuringMachine();
-
+            tmConfig &getConfig();
             /* Sets the initial state
              * Add's a new state if it doenst already exist
              */
             void setInitial(std::string key);
-
+            
             /*
              * Sets the acceptance state of the tm
              * This state shouldn't have any transitions defined
