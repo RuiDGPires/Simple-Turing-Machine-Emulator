@@ -25,6 +25,11 @@ class cMain : public wxFrame{
         
         wxDECLARE_EVENT_TABLE();
     public:
+        wxBoxSizer *main_sizer;
+        wxBoxSizer *label_sizer;
+        wxBoxSizer *textbox_sizer;
+        wxBoxSizer *buttons_sizer;
+
         wxTextCtrl *txtbox_input;
 
         /* Buttons */
