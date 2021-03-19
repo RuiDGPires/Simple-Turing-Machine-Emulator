@@ -7,6 +7,7 @@
 
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
+    //#include <wx/vscroll.h>
 #endif
 
 class cMain : public wxFrame{
@@ -45,6 +46,7 @@ class cMain : public wxFrame{
         wxStaticText *left_label;
         wxStaticText *mid_label;
         wxStaticText *right_label;
+        wxStaticText *state_label;
         
 };
 
