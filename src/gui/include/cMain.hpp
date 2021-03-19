@@ -14,24 +14,35 @@
 
 class cMain : public wxFrame{
     private:
-        tmch::TuringMachine tm;
-
-    private:
-        void setLabels(tmch::TuringMachine &t);
+        bool running = false;
     public:
         cMain();
         ~cMain();
 
+        void doStartThread();
+        void doStopThread();
+        void setLabels(tmch::TuringMachine &t);
         /* Events */
-        void OnButtonRunClicked(wxCommandEvent &evt);
+        void OnButtonEvalClicked(wxCommandEvent &evt);
         void OnButtonStepClicked(wxCommandEvent &evt);
         void OnButtonLoadClicked(wxCommandEvent &evt);
+        void OnButtonRunClicked(wxCommandEvent &evt);
 
         void OnMenuOpenClicked(wxCommandEvent &evt);
         
         void OnResizing(wxSizeEvent &evt);
+
+        void OnThreadCompletion(wxCommandEvent &evt);
+        void OnThreadUpdate(wxCommandEvent &evt);
+        
         wxDECLARE_EVENT_TABLE();
     public:
+        tmch::TuringMachine tm;
+
+        wxThread *m_pThread;
+        wxCriticalSection m_pThreadCS;    // protects the m_pThread pointer
+        wxCriticalSection m_tmCS;
+
         wxBoxSizer *main_sizer;
         wxBoxSizer *label_sizer;
         wxBoxSizer *textbox_sizer;
@@ -41,6 +52,7 @@ class cMain : public wxFrame{
 
         /* Buttons */
         wxButton *btn_run;
+        wxButton *btn_eval;
         wxButton *btn_step;
         wxButton *btn_load;
 
@@ -52,4 +64,15 @@ class cMain : public wxFrame{
         
 };
 
+class RunningThread : public wxThread
+{
+    private:
+        cMain *main;
+    public:
+        RunningThread(cMain *main);
+        ~RunningThread();
+
+        // thread execution starts here
+        virtual wxThread::ExitCode Entry();
+};
 #endif
