@@ -55,6 +55,10 @@ namespace tmch{
             std::map<std::string, tmState> states;
             std::string initial_state, accept_state, reject_state; 
             bool reject_no_conn = false;
+        private:
+            void clearExcessEmptySpace(std::string &s, int *size);
+            void clearExcessEmptySpaceRight(std::string &s, int *size);
+            void clearExcessEmptySpaceLeft(std::string &s, int *size);
         public:
             State state = HALT;
             TuringMachine();

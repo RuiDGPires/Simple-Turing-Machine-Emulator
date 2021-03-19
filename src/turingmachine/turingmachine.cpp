@@ -57,25 +57,33 @@ void tmch::TuringMachine::reset(){
     config.setState(initial_state);
 }
 
+void tmch::TuringMachine::clearExcessEmptySpaceRight(std::string &s, int *size){
+    if (*size >= 1)
+        if (s[*size-1] == ' ')
+                while(*size > 1 && s[*size-2] == ' ')
+                    s.erase(--(*size),1);
+}
+
+void tmch::TuringMachine::clearExcessEmptySpaceLeft(std::string &s, int *size){
+    if (*size >= 1)
+        if (s[0] == ' ')
+            while(*size > 1 && s[1]==' '){
+                s.erase(1,1);
+                (*size)--;
+            }
+}
+void tmch::TuringMachine::clearExcessEmptySpace(std::string &s, int *size){
+   clearExcessEmptySpaceLeft(s, size);
+   clearExcessEmptySpaceRight(s, size);
+}
+
+
 void tmch::TuringMachine::load(std::string s){
     this->reset();
-    int size = s.size();
     state = HALT;
-    
-    /* Erase excess blank space */
-    if (size >= 1){
-        if (s[0] == ' ')
-            while(size > 1 && s[1]==' '){
-                s.erase(1,1);
-                size--;
-            }
+    int size = s.size();
 
-
-        if (s[size-1] == ' ')
-            while(size > 1 && s[size-2] == ' ')
-                s.erase(--size,1);
-        
-    }
+    clearExcessEmptySpace(s, &size);
     if (s[size-1] != ' ')
         s.push_back(' ');
     
@@ -98,7 +106,20 @@ void tmch::TuringMachine::step(){
                 state = HALT;
         }
     }
-    
+
+    /* Clear extra white space that might have been created
+     * Ugly solution but it is what it is 
+     */
+    std::string s = config.getRight();
+    int size = s.size();
+    clearExcessEmptySpaceRight(s, &size);
+    config.setRight(s);
+    s = config.getLeft();
+    size = s.size();
+    clearExcessEmptySpaceLeft(s, &size);
+    config.setLeft(s);
+
+
     if (config.getState().compare(accept_state) == 0)
         state = ACCEPT;
     else if (config.getState().compare(reject_state) == 0)
