@@ -13,10 +13,10 @@ GUI is done using [wxWidgets](https://www.wxwidgets.org/).
 - [x] Windows exporting
 - [x] Add comments to the text evaluator's syntax
 - [x] GUI
+- [ ] Config editor with syntax highlighting
 - [ ] System for importing other configs inside a config file
 - [ ] Re-writing the Makefile
 - [ ] Extensive testing
-- [ ] Syntax highlighting for vscode
 - [ ] Possibly add multi-thread processing
 
 ## Example
