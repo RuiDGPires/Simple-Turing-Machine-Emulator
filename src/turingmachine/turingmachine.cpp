@@ -123,8 +123,7 @@ void tmch::TuringMachine::clear(){
     reject_no_conn = false;
     this->reset();
 }
-
-std::string tmch::TuringMachine::toString() const{
+std::string tmch::TuringMachine::stateToString() const{
     std::string s;
     switch(state){  
         case tmch::RUNNING:
@@ -141,7 +140,12 @@ std::string tmch::TuringMachine::toString() const{
             s = "Halt";
             break;
     }
-    return config.toString() + " >> " + s; 
+    return s;
+}
+
+std::string tmch::TuringMachine::toString() const{
+    
+    return config.toString() + " >> " + stateToString(); 
 }
 
 tmch::tmState &tmch::TuringMachine::getState(std::string key){

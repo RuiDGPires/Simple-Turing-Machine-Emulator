@@ -101,6 +101,7 @@ namespace tmch{
              */
             void setRejectNoConnection(bool v);
             std::string toString() const;
+            std::string stateToString() const;
     };
 }
 std::ostream& operator<< (std::ostream &out, tmch::TuringMachine const &tm);
