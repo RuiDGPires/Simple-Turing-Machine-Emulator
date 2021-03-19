@@ -10,6 +10,8 @@
     //#include <wx/vscroll.h>
 #endif
 
+#define DEFAULT_MAIN_SIZE wxSize(640,480)
+
 class cMain : public wxFrame{
     private:
         tmch::TuringMachine tm;
