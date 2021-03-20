@@ -4,10 +4,9 @@
 #include "../../turingmachine/include/turingmachine.hpp"
 #include "../../evaluator/include/evaluator.hpp"
 
-
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
-    //#include <wx/vscroll.h>
+    #include <wx/stc/stc.h>
 #endif
 
 #define DEFAULT_MAIN_SIZE wxSize(640,480)
@@ -15,6 +14,11 @@
 class cMain : public wxFrame{
     private:
         bool running = false;
+        wxStyledTextCtrl *setupEditor(wxSize size);
+        
+        enum{MAIN_FRAME=0};
+        enum{BTN_LOAD=100, BTN_EVAL, BTN_RUN, BTN_STEP, TXTBOX, LABEL,EDITOR};
+        enum{MENU_OPEN=200};
     public:
         cMain();
         ~cMain();
@@ -34,7 +38,7 @@ class cMain : public wxFrame{
 
         void OnThreadCompletion(wxCommandEvent &evt);
         void OnThreadUpdate(wxCommandEvent &evt);
-        
+
         wxDECLARE_EVENT_TABLE();
     public:
         tmch::TuringMachine tm;
@@ -47,6 +51,7 @@ class cMain : public wxFrame{
         wxBoxSizer *label_sizer;
         wxBoxSizer *textbox_sizer;
         wxBoxSizer *buttons_sizer;
+        wxBoxSizer *editor_sizer;
 
         wxTextCtrl *txtbox_input;
 
@@ -61,7 +66,6 @@ class cMain : public wxFrame{
         wxStaticText *mid_label;
         wxStaticText *right_label;
         wxStaticText *state_label;
-        
 };
 
 class RunningThread : public wxThread

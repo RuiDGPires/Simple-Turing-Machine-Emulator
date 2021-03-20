@@ -1,6 +1,5 @@
 #include "include/cApp.hpp"
-#include "../turingmachine/include/turingmachine.hpp"
-#include "../evaluator/include/evaluator.hpp"
+
 
 wxIMPLEMENT_APP(cApp);
 

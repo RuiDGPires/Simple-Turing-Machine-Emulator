@@ -2,14 +2,10 @@
 
 #include <iostream>
 
-#define SLEEP_TIME 180000000
+#define SLEEP_TIME 120000000
 
 wxDECLARE_EVENT(wxEVT_COMMAND_RUNNINGTHREAD_COMPLETED, wxThreadEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_RUNNINGTHREAD_UPDATE, wxThreadEvent);
-
-enum{MAIN_FRAME=0};
-enum{BTN_LOAD=100, BTN_EVAL, BTN_RUN, BTN_STEP, TXTBOX, LABEL};
-enum{MENU_OPEN=200};
 
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
@@ -35,9 +31,9 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     /* Sizers */
     main_sizer = new wxBoxSizer(wxVERTICAL);
     label_sizer = new wxBoxSizer(wxHORIZONTAL);
-
     buttons_sizer = new wxBoxSizer(wxHORIZONTAL);
     textbox_sizer = new wxBoxSizer(wxHORIZONTAL);
+    editor_sizer = new wxBoxSizer(wxHORIZONTAL);
 
     /* Labels */
     left_label = new wxStaticText(this, LABEL, "", wxPoint(0,0), wxSize(600,120), wxALIGN_RIGHT);
@@ -71,6 +67,9 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     menuFile->Append(MENU_OPEN, "Open");
     menu_bar->Append(menuFile,"File");
 
+    /* Text Editor */
+    editor_sizer->Add(setupEditor(wxSize(800,600)), 0, wxALIGN_CENTER);
+    editor_sizer->SetMinSize(wxSize(800,800));
 
     label_sizer->Add(left_label, 0, wxALIGN_BOTTOM);
     label_sizer->Add(mid_label, 0, wxALIGN_BOTTOM);
@@ -88,6 +87,7 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     main_sizer->Add(state_label, 0, wxALIGN_CENTER_HORIZONTAL);
     main_sizer->Add(textbox_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
     main_sizer->Add(buttons_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
+    main_sizer->Add(editor_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
 
     
     SetSizer(main_sizer);

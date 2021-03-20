@@ -4,7 +4,7 @@ WCC=x86_64-w64-mingw32-g++
 LFLAGS=-I.
 
 CWX=`wx-config --cxxflags`
-LWX=`wx-config --libs`
+LWX=`wx-config --libs all`
 
 DEPS = src/turingmachine/include/*.hpp src/evaluator/include/*.hpp
 OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turingmachine/tmstate.o src/evaluator/evaluator.o src/evaluator/evaluator_parsing.o src/evaluator/filereader.o  src/evaluator/exceptions.o
