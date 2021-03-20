@@ -7,6 +7,7 @@
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
     #include <wx/stc/stc.h>
+    #include <wx/file.h>
 #endif
 
 #define DEFAULT_MAIN_SIZE wxSize(640,480)
@@ -18,7 +19,9 @@ class cMain : public wxFrame{
         
         enum{MAIN_FRAME=0};
         enum{BTN_LOAD=100, BTN_EVAL, BTN_RUN, BTN_STEP, TXTBOX, LABEL,EDITOR};
-        enum{MENU_OPEN=200};
+        enum{MENU_OPEN=200, MENU_NEW, MENU_SAVE, MENU_SAVE_AS, MENU_EXIT};
+
+        wxStyledTextCtrl *editor;
     public:
         cMain();
         ~cMain();

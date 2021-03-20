@@ -28,6 +28,8 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     evl::Evaluator ev(&tm);
     wxSize btn_size(120,50);
     this->Maximize();
+    this->SetBackgroundColour(wxColour(54,57,63));
+
     /* Sizers */
     main_sizer = new wxBoxSizer(wxVERTICAL);
     label_sizer = new wxBoxSizer(wxHORIZONTAL);
@@ -63,12 +65,18 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     menu_bar = new wxMenuBar();
     this->SetMenuBar(menu_bar);
 
-    wxMenu *menuFile = new wxMenu();
-    menuFile->Append(MENU_OPEN, "Open");
-    menu_bar->Append(menuFile,"File");
+    wxMenu *menu_file = new wxMenu();
+    menu_file->Append(MENU_NEW, "New (ctrl+N)");
+    menu_file->Append(MENU_OPEN, "Open (ctrl+O)");
+    menu_file->Append(MENU_SAVE, "Save (ctrl+S)");
+    menu_file->Append(MENU_SAVE_AS, "Save As (ctrl+shift+S)");
+    menu_file->Append(MENU_EXIT, "Exit");
+
+    menu_bar->Append(menu_file,"File");
 
     /* Text Editor */
-    editor_sizer->Add(setupEditor(wxSize(800,600)), 0, wxALIGN_CENTER);
+    editor = setupEditor(wxSize(800,600));
+    editor_sizer->Add(editor, 0, wxALIGN_CENTER);
     editor_sizer->SetMinSize(wxSize(800,800));
 
     label_sizer->Add(left_label, 0, wxALIGN_BOTTOM);

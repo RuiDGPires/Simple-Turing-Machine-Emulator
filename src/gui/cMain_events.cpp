@@ -38,9 +38,16 @@ void cMain::OnMenuOpenClicked(wxCommandEvent &evt){
     if (dlg.ShowModal() == wxID_OK){
         evl::Evaluator ev(&tm);
         ev.evalFile(std::string(dlg.GetPath().c_str())); 
+        wxFile newFile(dlg.GetPath().c_str());
+
+        wxString s;
+        newFile.ReadAll(&s);
+        editor->SetText(s);
     }
 
     tm.load(std::string(txtbox_input->GetValue().mb_str()));
+
+    
     setLabels(tm);
 }
 
