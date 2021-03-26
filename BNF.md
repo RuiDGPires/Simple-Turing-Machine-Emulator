@@ -18,7 +18,11 @@ All whitespace that is not a terminal symbol is ignored
 
 <Rule>                  ::= <Character> "->" <Character> "," <Direction> ";" 
 
-<Identifier>            ::= (<Letter> | <Number>)+
+<Identifier>            ::=  <Quoted-Name> | <Name>
+
+<Quoted-Name>           ::= '"' (<Letter> | <Number> | <Symbol>)+ '"'
+
+<Name>                  ::= (<Letter> | <Number>)+
 
 <Character>             ::= <Letter> | <Number> | <Quoted-Character>
 
