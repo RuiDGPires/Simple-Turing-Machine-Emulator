@@ -110,7 +110,6 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                 
                 break;
             case evl::FileReader::ReadState::QUOTE:
-
                 if (line[i] == '"'){
                     if (buffer.empty())
                         throw ParseFailException(n);

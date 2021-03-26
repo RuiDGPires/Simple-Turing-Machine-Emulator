@@ -128,21 +128,30 @@ void evl::Evaluator::direction(evl::Connection_t *t){
 }
 
 void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
+    // INIT
     if (t->str.compare("init") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException("init(state) takes 1 argument");
         tm->setInitial(*(t->arguments.begin()));
+    //ACC
     }else if (t->str.compare("acc") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException("acc(state) takes 1 argument");
         tm->setAccept(*(t->arguments.begin()));
+    //REJ
     }else if (t->str.compare("rej") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException("rej(state) takes 1 argument");
         tm->setReject(*(t->arguments.begin()));
+    //REJECT OTHERS
     }else if (t->str.compare("rejectOthers") == 0){
         if (!t->arguments.empty())
             throw InvalidMethodException("rejectOthers() takes no arguments");
+        tm->setRejectNoConnection(true);
+    //EXTEND
+    }else if (t->str.compare("extend") == 0){
+        if (t->arguments.size() != 1)
+            throw InvalidMethodException("extend() takes 1 argument");
         tm->setRejectNoConnection(true);
     }else
         throw InvalidMethodException("Unkown method: " + t->str);
