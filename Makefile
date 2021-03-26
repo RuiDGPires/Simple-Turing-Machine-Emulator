@@ -22,16 +22,17 @@ GUI_CPPFILES = src/gui/*.cpp
 GUI_OFILES = src/gui/cApp.o src/gui/cMain.o
 
 %.o: %.cpp $(DEPS) $(MAIN_DEPS) $(TEST_DEPS) $(GUI_DEPS)
-	$(CC) -c $(LWX) -o $@ $< $(LFLAGS)  
+	$(CC) -I/usr/include/python3.8/ -c $(LWX) -o $@ $< $(LFLAGS)  
 
 all: $(OFILES) $(MAIN_OFILES)
-	$(CC) -Wall  $(OFILES) $(MAIN_OFILES) -o $(NAME) -lm 
+	$(CC) -Wall  $(OFILES) $(MAIN_OFILES) -o $(NAME)  -lm 
 
 gui: $(OFILES) $(GUI_DEPS)
 	$(CC) -Wall  $(OFILES) $(GUI_CPPFILES) $(CWX) $(LWX) -o $(NAME)_gui
 
+
 test: $(OFILES) $(TEST_OFILES)
-	$(CC) $(CWX) -o test $(OFILES) $(TEST_OFILES) -lm 
+	$(CC) -I/usr/include/python3.8/ $(CWX) -o test $(OFILES) $(TEST_OFILES)  -lm 
 
 clean:
 	rm -f  *.o src/**/*.o test $(NAME) $(NAME).exe 
@@ -39,6 +40,6 @@ clean:
 
 windows: $(DEPS) 
 	$(WCC) -o $(NAME).exe $(CPPFILES) $(MAIN_CFILES) -lm --static -static-libstdc++ 
-
+	
 wgui: $(DEPS) $(GUI_DEPS)
 	$(WCC) -o $(NAME).exe $(CPPFILES) $(GUI_CPPFILES) -lm --static -static-libstdc++  $(CWX) $(LWX) 

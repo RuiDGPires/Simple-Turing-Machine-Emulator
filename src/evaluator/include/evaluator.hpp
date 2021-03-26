@@ -29,7 +29,7 @@ namespace evl{
 
     class FileReader{
         private: 
-            enum ReadState{NONE, NAME, SYMBOL, CHAR};
+            enum ReadState{NONE, NAME, SYMBOL, CHAR, QUOTE};
         private:
             int line_n = 1;
             bool is_at_end = false;

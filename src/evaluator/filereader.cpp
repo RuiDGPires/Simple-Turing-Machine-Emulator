@@ -91,6 +91,9 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                     i++;
                 } else if (isSymbol(line[i])){
                     state = evl::FileReader::ReadState::SYMBOL;
+                }else if (line[i] == '"'){
+                    state = evl::FileReader::ReadState::QUOTE;
+                    i++;
                 }else if (line[i] == ' ' || line[i] == '\0' || line[i] == '\n' || line[i] == '\r' || line[i] == '\t')
                     i++;
                 else if (line[i] == '#')
@@ -102,10 +105,25 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                 if (!(isLetter(line[i]) || isNumber(line[i]))){
                     state = evl::FileReader::ReadState::NONE;
                     dumpToken(&ret, &buffer, evl::Symb::NAME, n);
-                }else{
-                    buffer.push_back(line[i]);
+                }else
+                    buffer.push_back(line[i++]);
+                
+                break;
+            case evl::FileReader::ReadState::QUOTE:
+
+                if (line[i] == '"'){
+                    if (buffer.empty())
+                        throw ParseFailException(n);
+                    else{
+                        dumpToken(&ret, &buffer, evl::Symb::NAME, n);
+                        state = evl::FileReader::ReadState::NONE;
+                        i++;
+                    }
+                }else if (line[i] == '\\'){
+                    buffer.push_back(line[++i]);
                     i++;
-                }
+                }else
+                    buffer.push_back(line[i++]);
                 break;
             case evl::FileReader::ReadState::SYMBOL:
                 buffer.push_back(line[i]);

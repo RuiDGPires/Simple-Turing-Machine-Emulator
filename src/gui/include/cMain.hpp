@@ -29,6 +29,7 @@ class cMain : public wxFrame{
         void doStartThread();
         void doStopThread();
         void setLabels(tmch::TuringMachine &t);
+        void highlightSTCsyntax(size_t fromPos,size_t toPos, wxString &text);
         /* Events */
         void OnButtonEvalClicked(wxCommandEvent &evt);
         void OnButtonStepClicked(wxCommandEvent &evt);
@@ -42,6 +43,7 @@ class cMain : public wxFrame{
         void OnThreadCompletion(wxCommandEvent &evt);
         void OnThreadUpdate(wxCommandEvent &evt);
 
+        void OnEditorStyleNeeded(wxStyledTextEvent &evt);
         wxDECLARE_EVENT_TABLE();
     public:
         tmch::TuringMachine tm;
