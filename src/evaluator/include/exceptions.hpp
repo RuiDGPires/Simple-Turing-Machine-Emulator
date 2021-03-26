@@ -31,5 +31,12 @@ namespace evl{
                 InvalidMethodException(std::string name);
                 ~InvalidMethodException();
         };
+        class ConnectionExistsException {
+            public:
+                std::string name;
+            public:
+                ConnectionExistsException(std::string name);
+                ~ConnectionExistsException();
+        };
         enum GenericException{FILE_CLOSED, FILE_OPEN_FAIL, END_OF_FILE};
 }

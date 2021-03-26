@@ -43,22 +43,28 @@ void evl::Evaluator::requestLine(){
     
     line = getLine();
     
-    if (line.empty())
-        throw END_OF_FILE;
+    evl::Token t;
+    t.line = -1;
+    t.str = "";
+    t.symb = evl::Symb::END;
+
+    if (line.empty()){
+        line.push_back(t);
+        working_list.splice(working_list.end(), line);
+        return;
+    }
 
     size = line.size();
     std::list<evl::Token>::iterator it1 = std::next(line.begin(), size-1);
 
     while (it1->symb != evl::Symb::SEMICLN && it1->symb != evl::Symb::RBRACK){
         new_line = getLine();
-        //printList(new_line);
         if (new_line.empty())
             throw SyntaxFailException(it1->line);
         size = new_line.size();
         it1 = std::next(new_line.begin(), size-1);
         line.splice(line.end(), new_line);
     }
-
     working_list.splice(working_list.end(), line);
     
 
@@ -86,6 +92,10 @@ bool evl::Evaluator::evalFile(std::string file_name){
         return false;
     }catch(evl::InvalidMethodException e){
         std::cout << "Invalid Method: " << e.name << std::endl;
+        f.closeFile();
+        return false;
+    }catch(evl::ConnectionExistsException e){
+        std::cout << "Connection is already declared: " << e.name << std::endl;
         f.closeFile();
         return false;
     }catch(evl::GenericException e){

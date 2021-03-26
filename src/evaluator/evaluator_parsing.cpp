@@ -1,9 +1,5 @@
 #include "include/evaluator.hpp"
 
-#if DEBUG
-#include <iostream>
-#endif
-
 
 void evl::Evaluator::nextSym(){
     if (working_list.empty()){
@@ -14,6 +10,9 @@ void evl::Evaluator::nextSym(){
 }
 
 bool evl::Evaluator::accept(Symb s){
+    if (current_tok.symb == Symb::END)
+        throw END_OF_FILE;
+
     if (current_tok.symb == s){
         nextSym();
         return true;
@@ -152,7 +151,8 @@ void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
     }else if (t->str.compare("extend") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException("extend() takes 1 argument");
-        tm->setRejectNoConnection(true);
+        Evaluator e(tm);
+        e.evalFile(*(t->arguments.begin()));
     }else
         throw InvalidMethodException("Unkown method: " + t->str);
 }
@@ -161,5 +161,11 @@ void evl::Evaluator::evalConnection(evl::Connection_t *t){
         tm->addState(t->from);
     if (!tm->stateExists(t->to))
         tm->addState(t->to);
+
+    try{
     tm->getState(t->from).addRule(t->in, t->out, t->dir, t->to);
+    }catch(tmch::Exception e){
+        if (e == tmch::Exception::RULE_EXISTS)
+            throw ConnectionExistsException(t->from + "->" + t->to + ": " + t->in);
+    }
 }

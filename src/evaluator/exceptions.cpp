@@ -25,3 +25,9 @@ evl::InvalidMethodException::InvalidMethodException(std::string name){
 
 evl::InvalidMethodException::~InvalidMethodException(){}
 
+evl::ConnectionExistsException::ConnectionExistsException(std::string name){
+    this->name = name;
+}
+
+evl::ConnectionExistsException::~ConnectionExistsException(){}
+
