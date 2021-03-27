@@ -18,8 +18,14 @@ TEST_CASE("Text syntax evaluation tests" ,"[Syntax]"){
     REQUIRE(e.evalFile("tests/syntax/pass3.conf"));
     REQUIRE(e.evalFile("tests/syntax/pass4.conf"));
     REQUIRE(e.evalFile("tests/syntax/pass5.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass6.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass7.conf"));
     REQUIRE(!e.evalFile("tests/syntax/fail1.conf"));
     REQUIRE(!e.evalFile("tests/syntax/fail2.conf"));
     REQUIRE(!e.evalFile("tests/syntax/fail3.conf")); 
     REQUIRE(!e.evalFile("tests/syntax/fail4.conf")); 
+    REQUIRE(!e.evalFile("tests/syntax/fail5.conf")); 
+    REQUIRE(!e.evalFile("tests/syntax/fail6.conf")); 
+    REQUIRE(!e.evalFile("tests/syntax/fail7.conf")); 
+    
 }
