@@ -35,10 +35,17 @@ void evl::Evaluator::configuration(){
 bool evl::Evaluator::expression(){
     evl::MethodCall_t token_method;
     evl::Connection_t token_conn;
+    int decorators = 0;
+
+    if (accept(DECORATOR))
+            Decorators(&decorators);
 
     token_method.str = current_tok.str;
     token_conn.from = current_tok.str;
     token_method.arguments.clear();
+
+    token_method.decorators = decorators;
+    token_conn.decorators = decorators;
     
     identifier();
     if (accept(LPAREN)){
@@ -125,6 +132,26 @@ void evl::Evaluator::direction(evl::Connection_t *t){
     }
     nextSym();
 }
+
+int parseDecorator(std::string s){
+    if (s.compare("Override"))
+        return evl::Decorator::OVERRIDE;
+    else if (s.compare("Reset"))
+        return evl::Decorator::RESET;
+    else if (s.compare("RejectOthers"))
+        return evl::Decorator::RESET;
+    else
+        throw evl::InvalidDecoratorException(s);
+}
+
+void evl::Evaluator::Decorators(int *n){
+    do {
+        *n |= parseDecorator(current_tok.str);
+        expect(NAME);
+    }while(accept(COMMA));
+    expect(SEMICLN);
+}
+
 
 void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
     // INIT

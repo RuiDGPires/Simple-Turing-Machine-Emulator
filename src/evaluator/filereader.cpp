@@ -62,7 +62,7 @@ bool isNumber(char c){
     return ((c >= '0') && (c <= '9'));
 }
 bool isSymbol(char c){
-    return c == '(' || c == ')' || c == '-' || c == '>' || c == ':' || c == '{' || c == '}' || c == ';' || c == ',';
+    return c == '(' || c == ')' || c == '-' || c == '>' || c == ':' || c == '{' || c == '}' || c == ';' || c == ',' || c == '@';
 }
 
 void dumpToken(std::list<evl::Token> *l, std::string *buffer, evl::Symb sy, int line_n){
@@ -86,10 +86,10 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
             case evl::FileReader::ReadState::NONE:
                 if (isLetter(line[i]) || isNumber(line[i])){
                     state = evl::FileReader::ReadState::NAME;
-                } else if (line[i] == '\''){
+                }else if (line[i] == '\''){
                     state = evl::FileReader::ReadState::CHAR;
                     i++;
-                } else if (isSymbol(line[i])){
+                }else if (isSymbol(line[i])){
                     state = evl::FileReader::ReadState::SYMBOL;
                 }else if (line[i] == '"'){
                     state = evl::FileReader::ReadState::QUOTE;
@@ -155,6 +155,9 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                     dumpToken(&ret, &buffer, evl::Symb::CLN, n);
                 else if (line[i] == ',')
                     dumpToken(&ret, &buffer, evl::Symb::COMMA, n);
+                else if (line[i] == '@')
+                    dumpToken(&ret, &buffer, evl::Symb::DECORATOR, n);
+                
                 state = evl::FileReader::ReadState::NONE;
                 i++;
                 break;

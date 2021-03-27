@@ -31,6 +31,15 @@ namespace evl{
                 InvalidMethodException(std::string name);
                 ~InvalidMethodException();
         };
+
+        class InvalidDecoratorException{
+            public:
+                std::string name;
+            public:
+                InvalidDecoratorException(std::string name);
+                ~InvalidDecoratorException();
+        };
+
         class ConnectionExistsException {
             public:
                 std::string name;

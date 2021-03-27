@@ -94,6 +94,10 @@ bool evl::Evaluator::evalFile(std::string file_name){
         std::cout << "Invalid Method: " << e.name << std::endl;
         f.closeFile();
         return false;
+    }catch(evl::InvalidDecoratorException e){
+        std::cout << "Invalid Decorator: " << e.name << std::endl;
+        f.closeFile();
+        return false;
     }catch(evl::ConnectionExistsException e){
         std::cout << "Connection is already declared: " << e.name << std::endl;
         f.closeFile();

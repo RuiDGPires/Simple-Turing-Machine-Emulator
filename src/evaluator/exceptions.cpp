@@ -31,3 +31,10 @@ evl::ConnectionExistsException::ConnectionExistsException(std::string name){
 
 evl::ConnectionExistsException::~ConnectionExistsException(){}
 
+evl::InvalidDecoratorException::InvalidDecoratorException(std::string name){
+    this->name = name;
+}
+
+evl::InvalidDecoratorException::~InvalidDecoratorException(){}
+
+

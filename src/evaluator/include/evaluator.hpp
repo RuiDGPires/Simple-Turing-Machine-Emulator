@@ -9,7 +9,9 @@
 #include "exceptions.hpp"
 
 namespace evl{
-    enum Symb{NAME, LINK, LPAREN, RPAREN , LBRACK, RBRACK, SEMICLN, CLN, COMMA, END};
+    enum Symb{NAME, LINK, LPAREN, RPAREN , LBRACK, RBRACK, SEMICLN, CLN, COMMA, DECORATOR, END};
+    enum Decorator{OVERRIDE = 1, RESET = 2, REJECTOTHERS = 4, SURPRESS = 8};
+
     struct Token{
         Symb symb;
         std::string str;
@@ -19,12 +21,14 @@ namespace evl{
     struct MethodCall_t{
         std::string str;
         std::list<std::string> arguments;
+        int decorators;
     };
 
     struct Connection_t{
         std::string from, to;
         char in, out;
         tmch::Dir dir;
+        int decorators;
     };
 
     class FileReader{
@@ -73,9 +77,11 @@ namespace evl{
             void identifier();
             void character();
             void direction(Connection_t *t);
+            void Decorators(int *n);
 
             void evalMethod(MethodCall_t *t);
             void evalConnection(Connection_t *t);
+            
 
         public:
             Evaluator(tmch::TuringMachine *tm);
