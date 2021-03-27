@@ -22,10 +22,13 @@ GUI_CPPFILES = src/gui/*.cpp
 GUI_OFILES = src/gui/cApp.o src/gui/cMain.o
 
 %.o: %.cpp $(DEPS) $(MAIN_DEPS) $(TEST_DEPS) $(GUI_DEPS)
-	$(CC) -I/usr/include/python3.8/ -c $(LWX) -o $@ $< $(LFLAGS)  
+	$(CC)  -I/usr/include/python3.8/ -c $(LWX) -o $@ $< $(LFLAGS)  
 
 all: $(OFILES) $(MAIN_OFILES)
-	$(CC) -Wall  $(OFILES) $(MAIN_OFILES) -o $(NAME)  -lm 
+	$(CC)  -Wall  $(OFILES) $(MAIN_OFILES) -o $(NAME)  -lm 
+
+debug: $(DEPS)
+	$(CC) -g $(CPPFILES) $(MAIN_CFILES) -o $(NAME)-dbg
 
 gui: $(OFILES) $(GUI_DEPS)
 	$(CC) -Wall  $(OFILES) $(GUI_CPPFILES) $(CWX) $(LWX) -o $(NAME)_gui
