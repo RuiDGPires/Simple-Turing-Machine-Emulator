@@ -7,14 +7,14 @@ CWX=`wx-config --cxxflags`
 LWX=`wx-config --libs all`
 
 DEPS = src/turingmachine/include/*.hpp src/evaluator/include/*.hpp
-OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turingmachine/tmstate.o src/evaluator/evaluator.o src/evaluator/evaluator_parsing.o src/evaluator/filereader.o  src/evaluator/exceptions.o
+OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turingmachine/tmstate.o src/evaluator/evaluator.o src/evaluator/evaluator_parsing.o src/evaluator/filereader.o  src/evaluator/exceptions.o src/pathLib/pathLib.a
 CPPFILES= src/turingmachine/*.cpp src/evaluator/*.cpp
 
 TEST_DEPS = src/catch/catch.hpp
 TEST_OFILES = src/catch/catch.o src/test.o
 
 MAIN_DEPS = ""
-MAIN_OFILES = src/main.o src/pathLib/pathLib.a
+MAIN_OFILES = src/main.o
 MAIN_CFILES = src/main.cpp
 
 GUI_DEPS = src/gui/include/*.hpp
