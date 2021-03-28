@@ -9,7 +9,7 @@
 
 TEST_CASE("Text syntax evaluation tests" ,"[Syntax]"){
     tmch::TuringMachine tm;
-    std::cout.setstate(std::ios_base::failbit);
+    std::cout.setstate(std::ios_base::failbit); // Disable prints
     evl::Evaluator e(&tm);
 
     
@@ -20,6 +20,9 @@ TEST_CASE("Text syntax evaluation tests" ,"[Syntax]"){
     REQUIRE(e.evalFile("tests/syntax/pass5.conf"));
     REQUIRE(e.evalFile("tests/syntax/pass6.conf"));
     REQUIRE(e.evalFile("tests/syntax/pass7.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass8.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass9.conf"));
+    REQUIRE(e.evalFile("tests/syntax/pass10.conf"));
     REQUIRE(!e.evalFile("tests/syntax/fail1.conf"));
     REQUIRE(!e.evalFile("tests/syntax/fail2.conf"));
     REQUIRE(!e.evalFile("tests/syntax/fail3.conf")); 
