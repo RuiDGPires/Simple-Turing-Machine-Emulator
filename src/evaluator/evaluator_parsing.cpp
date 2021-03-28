@@ -66,6 +66,7 @@ bool evl::Evaluator::expression(){
         expect(LINK);
         if (accept(LBRACK)){
             do{
+                token_conn.decorators = decorators;
                 connection(&token_conn);
             }while(!accept(RBRACK));
         }else{
@@ -78,6 +79,7 @@ bool evl::Evaluator::expression(){
 
 
 void evl::Evaluator::connection(Connection_t *t){
+    int aux = t->decorators;
     int decorators = 0;
     if (accept(DECORATOR))
         Decorators(&decorators);
@@ -88,6 +90,7 @@ void evl::Evaluator::connection(Connection_t *t){
     expect(CLN);
     if (accept(LBRACK)){
         do{
+            t->decorators = aux;
             rule(t);
         }while(!accept(RBRACK));
     }else{
