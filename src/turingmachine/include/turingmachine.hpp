@@ -7,7 +7,7 @@
 
 namespace tmch{
     enum State{ACCEPT, REJECT, HALT, RUNNING};
-    enum Exception{STATE_EXISTS, NO_CONNECTION, RULE_EXISTS};
+    enum Exception{STATE_EXISTS, STATE_DOESNT_EXIST, NO_CONNECTION, RULE_EXISTS, RULE_DOES_NOT_EXIST};
     enum Dir{RIGHT, LEFT, STAY};
 
     /* Class to hold a TM's current configuration */
@@ -46,6 +46,10 @@ namespace tmch{
             ~tmState();
             std::string getName() const;
             void addRule(char current, char dest, Dir direction, std::string state);
+            bool hasRule(char current);
+            void deleteRule(char current);
+            void changeRule(char current, char dest, Dir direction, std::string state);
+            void clear();
             void accept(tmConfig *current_config);
     };
 
@@ -83,6 +87,10 @@ namespace tmch{
              * Adds a new state of the tm
              */
             void addState(std::string name);
+            /*
+             * Adds a new state of the tm
+             */
+            void removeState(std::string name);
             /*
              * Get a state of the tm by it's name
              */

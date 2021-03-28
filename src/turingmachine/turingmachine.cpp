@@ -51,6 +51,12 @@ void tmch::TuringMachine::addState(std::string name){
     states.insert(std::pair<std::string, tmch::tmState>(name,tmState(name)));
 }
 
+void tmch::TuringMachine::removeState(std::string name){
+    if (!stateExists(name))
+        throw STATE_DOESNT_EXIST;
+    states.erase(states.find(name));
+}
+
 void tmch::TuringMachine::reset(){
     config.setLeft(" ");
     config.setRight(" ");

@@ -204,21 +204,23 @@ void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
 }
 
 void evl::Evaluator::evalConnection(evl::Connection_t *t){
-    if (!tm->stateExists(t->from)){
-        if ((t->decorators & evl::Decorator::OVERRIDE) && !(t->decorators & evl::Decorator::SURPRESS))
-            throw ConnectionDoesntExistException(f.file_name, t->from + "->" + t->to + ": " + t->in);
+    if (!tm->stateExists(t->from))
         tm->addState(t->from);
-    }
-    if (!tm->stateExists(t->to)){
-        if ((t->decorators & evl::Decorator::OVERRIDE) && !(t->decorators & evl::Decorator::SURPRESS))
-            throw ConnectionDoesntExistException(f.file_name, t->from + "->" + t->to + ": " + t->in);
+
+    if (!tm->stateExists(t->to))
         tm->addState(t->to);
+
+    if (t->decorators & evl::Decorator::OVERRIDE){
+        if (tm->getState(t->from).hasRule(t->in)){
+            tm->getState(t->from).deleteRule(t->in);
+        }else if (!(t->decorators & evl::Decorator::SURPRESS))
+            throw ConnectionDoesntExistException(f.file_name,  t->from + "->" + t->to + ": " + t->in);
     }
 
     try{
-    tm->getState(t->from).addRule(t->in, t->out, t->dir, t->to);
+        tm->getState(t->from).addRule(t->in, t->out, t->dir, t->to);
     }catch(tmch::Exception e){
-        if (e == tmch::Exception::RULE_EXISTS)
+        if (e == tmch::Exception::RULE_EXISTS && !(t->decorators & evl::Decorator::SURPRESS))
             throw ConnectionExistsException(f.file_name, t->from + "->" + t->to + ": " + t->in);
     }
 }

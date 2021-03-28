@@ -30,7 +30,27 @@ void tmch::tmState::addRule(char current, char dest, Dir dir, std::string state)
         r.state = state;
         mapping.insert({current, r});
     }
+}
 
+bool tmch::tmState::hasRule(char current){
+    return (hasMapping(current));
+}
+
+void tmch::tmState::deleteRule(char current){
+    mapping.erase(mapping.find(current));
+}
+
+void tmch::tmState::changeRule(char current, char dest, Dir dir, std::string state){
+    if (!hasMapping(current))
+        throw RULE_DOES_NOT_EXIST;
+    else{
+        Rule r;
+        r.c = dest;
+        r.dir = dir;
+        r.state = state;
+        mapping.erase(mapping.find(current));
+        mapping.insert({current, r});
+    }
 }
 
 void tmch::tmState::accept(tmch::tmConfig *current_config){
