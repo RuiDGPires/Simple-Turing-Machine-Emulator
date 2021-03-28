@@ -1,51 +1,63 @@
 #include <string>
 
 namespace evl{
-    class ParseFailException {
-            public:
-                int line;
-            public:
-                ParseFailException(int line);
-                ~ParseFailException();
-        };
+    class Exception {
+        public:
+            std::string file;
+    };
 
-        class SyntaxFailException {
-            public:
-                int line;
-            public:
-                SyntaxFailException(int line);
-                ~SyntaxFailException();
-        };
-        class UnexpectedTokenException {
-            public:
-                int line;
-                std::string str;
-            public:
-                UnexpectedTokenException(std::string token_str, int line);
-                ~UnexpectedTokenException();
-        };
-        class InvalidMethodException {
-            public:
-                std::string name;
-            public:
-                InvalidMethodException(std::string name);
-                ~InvalidMethodException();
-        };
+    class ParseFailException : public Exception{
+        public:
+            int line;
+        public:
+            ParseFailException(std::string file, int line);
+            ~ParseFailException();
+    };
 
-        class InvalidDecoratorException{
-            public:
-                std::string name;
-            public:
-                InvalidDecoratorException(std::string name);
-                ~InvalidDecoratorException();
-        };
+    class SyntaxFailException : public Exception{
+        public:
+            int line;
+        public:
+            SyntaxFailException(std::string file, int line);
+            ~SyntaxFailException();
+    };
+    class UnexpectedTokenException : public Exception{
+        public:
+            int line;
+            std::string str;
+        public:
+            UnexpectedTokenException(std::string file, std::string token_str, int line);
+            ~UnexpectedTokenException();
+    };
+    class InvalidMethodException : public Exception{
+        public:
+            std::string name;
+        public:
+            InvalidMethodException(std::string file, std::string name);
+            ~InvalidMethodException();
+    };
 
-        class ConnectionExistsException {
-            public:
-                std::string name;
-            public:
-                ConnectionExistsException(std::string name);
-                ~ConnectionExistsException();
-        };
-        enum GenericException{FILE_CLOSED, FILE_OPEN_FAIL, END_OF_FILE};
+    class InvalidDecoratorException : public Exception{
+        public:
+            std::string name;
+        public:
+            InvalidDecoratorException(std::string file, std::string name);
+            ~InvalidDecoratorException();
+    };
+
+    class ConnectionExistsException : public Exception{
+        public:
+            std::string name;
+        public:
+            ConnectionExistsException(std::string file, std::string name);
+            ~ConnectionExistsException();
+    };
+
+    class FileOpenFail : public Exception{
+        public:
+            FileOpenFail(std::string file);
+            ~FileOpenFail();
+    };
+
+    enum GenericException{FILE_CLOSED, END_OF_FILE};
 }
