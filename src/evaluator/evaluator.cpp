@@ -112,6 +112,14 @@ bool evl::Evaluator::evalFile(Path file_name, Path current_path){
         std::cout << "<" + e.file + "> "<< "Connection is not declared (required by the decorator): " << e.name << std::endl;
         f.closeFile();
         return false;
+    }catch(evl::MainStateExistsException e){
+        std::cout << "<" + e.file + "> " << e.state << " state is already declared" << std::endl;
+        f.closeFile();
+        return false;
+    }catch(evl::MainStateDoesntExistException e){
+        std::cout << "<" + e.file + "> " << e.state << " state is not declared (required by the decorator)" << std::endl;
+        f.closeFile();
+        return false;
     }catch(evl::FileOpenFail e){
         std::cout << "Error opening file: " << e.file << std::endl;
         f.closeFile();

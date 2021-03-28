@@ -180,17 +180,54 @@ void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
     if (t->str.compare("init") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException(f.file_name, "init(state) takes 1 argument");
-        tm->setInitial(*(t->arguments.begin()));
+        
+        if (t->decorators & evl::Decorator::OVERRIDE){
+            if (tm->hasInitial()){
+                tm->setInitial("");
+            }else if (!(t->decorators & evl::Decorator::SURPRESS))
+                throw MainStateDoesntExistException(f.file_name, "Inital");
+        }
+
+        if (tm->hasInitial()){
+            if (!(t->decorators & evl::Decorator::SURPRESS))
+                throw MainStateExistsException(f.file_name, "Inital");
+        }else  
+            tm->setInitial(*(t->arguments.begin()));
+
     //ACC
     }else if (t->str.compare("acc") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException(f.file_name, "acc(state) takes 1 argument");
-        tm->setAccept(*(t->arguments.begin()));
+        
+        if (t->decorators & evl::Decorator::OVERRIDE){
+            if (tm->hasAccept()){
+                tm->setAccept("");
+            }else if (!(t->decorators & evl::Decorator::SURPRESS))
+                throw MainStateDoesntExistException(f.file_name, "Acceptance");
+        }
+
+        if (tm->hasAccept()){
+            if (!(t->decorators & evl::Decorator::SURPRESS))
+                throw MainStateExistsException(f.file_name, "Acceptance");  
+        }else  
+            tm->setAccept(*(t->arguments.begin()));
     //REJ
     }else if (t->str.compare("rej") == 0){
         if (t->arguments.size() != 1)
             throw InvalidMethodException(f.file_name, "rej(state) takes 1 argument");
-        tm->setReject(*(t->arguments.begin()));
+
+        if (t->decorators & evl::Decorator::OVERRIDE){
+            if (tm->hasReject()){
+                tm->setReject("");
+            }else if (!(t->decorators & evl::Decorator::SURPRESS))
+                throw MainStateDoesntExistException(f.file_name, "Rejection");
+        }
+
+        if (tm->hasReject()){
+            if (!(t->decorators & evl::Decorator::SURPRESS))
+                throw MainStateExistsException(f.file_name, "Rejection");
+        }else  
+            tm->setReject(*(t->arguments.begin()));
     //REJECT OTHERS
     }else if (t->str.compare("rejectOthers") == 0){
         if (!t->arguments.empty())

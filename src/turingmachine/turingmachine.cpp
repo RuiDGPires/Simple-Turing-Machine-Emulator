@@ -37,12 +37,22 @@ void tmch::TuringMachine::setInitial(std::string key){
     initial_state = key;
 }
 
+bool tmch::TuringMachine::hasInitial(){
+    return !initial_state.empty();
+}
+
 void tmch::TuringMachine::setAccept(std::string key){
     accept_state = key;
+}
+bool tmch::TuringMachine::hasAccept(){
+    return !accept_state.empty();
 }
 
 void tmch::TuringMachine::setReject(std::string key){
     reject_state = key;
+}
+bool tmch::TuringMachine::hasReject(){
+    return !reject_state.empty();
 }
 
 void tmch::TuringMachine::addState(std::string name){
