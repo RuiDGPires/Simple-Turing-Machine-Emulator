@@ -40,8 +40,9 @@ bool evl::Evaluator::expression(){
 
     if (accept(DECORATOR))
         Decorators(&decorators);
-    token_method.decorators |= decorators;
-    token_conn.decorators |= decorators;
+
+    token_method.decorators = decorators;
+    token_conn.decorators = decorators;
 
     token_method.str = current_tok.str;
     token_conn.from = current_tok.str;
@@ -99,7 +100,7 @@ void evl::Evaluator::rule(evl::Connection_t *t){
     if (accept(DECORATOR))
         Decorators(&decorators);
     t->decorators |= decorators;
-    
+
     t->in = current_tok.str[0];
     character();
     expect(LINK);
@@ -146,11 +147,13 @@ void evl::Evaluator::direction(evl::Connection_t *t){
 }
 
 int parseDecorator(std::string s){
-    if (s.compare("Override"))
+    if (s.compare("Override") == 0)
         return evl::Decorator::OVERRIDE;
-    else if (s.compare("Reset"))
+    else if (s.compare("Reset") == 0)
         return evl::Decorator::RESET;
-    else if (s.compare("RejectOthers"))
+    else if (s.compare("Surpress") == 0)
+        return evl::Decorator::SURPRESS;
+    else if (s.compare("RejectOthers") == 0)
         return evl::Decorator::RESET;
     else
         return -1;
@@ -199,11 +202,18 @@ void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
     }else
         throw InvalidMethodException(f.file_name, "Unkown method: " + t->str);
 }
+
 void evl::Evaluator::evalConnection(evl::Connection_t *t){
-    if (!tm->stateExists(t->from))
+    if (!tm->stateExists(t->from)){
+        if ((t->decorators & evl::Decorator::OVERRIDE) && !(t->decorators & evl::Decorator::SURPRESS))
+            throw ConnectionDoesntExistException(f.file_name, t->from + "->" + t->to + ": " + t->in);
         tm->addState(t->from);
-    if (!tm->stateExists(t->to))
+    }
+    if (!tm->stateExists(t->to)){
+        if ((t->decorators & evl::Decorator::OVERRIDE) && !(t->decorators & evl::Decorator::SURPRESS))
+            throw ConnectionDoesntExistException(f.file_name, t->from + "->" + t->to + ": " + t->in);
         tm->addState(t->to);
+    }
 
     try{
     tm->getState(t->from).addRule(t->in, t->out, t->dir, t->to);

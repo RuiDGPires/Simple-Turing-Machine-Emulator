@@ -28,7 +28,7 @@ all: $(OFILES) $(MAIN_OFILES)
 	$(CC)  -Wall  $(OFILES) $(MAIN_OFILES) -o $(NAME)  -lm 
 
 debug: $(DEPS)
-	$(CC) -g $(CPPFILES) $(MAIN_CFILES) -o $(NAME)-dbg
+	$(CC) -g $(CPPFILES) src/pathLib/pathLib.a $(MAIN_CFILES) -o $(NAME)-dbg
 
 gui: $(OFILES) $(GUI_DEPS)
 	$(CC) -Wall  $(OFILES) $(GUI_CPPFILES) $(CWX) $(LWX) -o $(NAME)_gui

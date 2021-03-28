@@ -36,6 +36,13 @@ evl::ConnectionExistsException::ConnectionExistsException(std::string file, std:
 
 evl::ConnectionExistsException::~ConnectionExistsException(){}
 
+evl::ConnectionDoesntExistException::ConnectionDoesntExistException(std::string file, std::string name){
+    this->file = file;
+    this->name = name;
+}
+
+evl::ConnectionDoesntExistException::~ConnectionDoesntExistException(){}
+
 evl::InvalidDecoratorException::InvalidDecoratorException(std::string file, std::string name){
     this->file = file;
     this->name = name;

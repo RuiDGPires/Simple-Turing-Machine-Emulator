@@ -108,6 +108,10 @@ bool evl::Evaluator::evalFile(Path file_name, Path current_path){
         std::cout << "<" + e.file + "> "<< "Connection is already declared: " << e.name << std::endl;
         f.closeFile();
         return false;
+    }catch(evl::ConnectionDoesntExistException e){
+        std::cout << "<" + e.file + "> "<< "Connection is not declared (required by the decorator): " << e.name << std::endl;
+        f.closeFile();
+        return false;
     }catch(evl::FileOpenFail e){
         std::cout << "Error opening file: " << e.file << std::endl;
         f.closeFile();

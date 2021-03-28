@@ -53,6 +53,14 @@ namespace evl{
             ~ConnectionExistsException();
     };
 
+    class ConnectionDoesntExistException : public Exception{
+        public:
+            std::string name;
+        public:
+            ConnectionDoesntExistException(std::string file, std::string name);
+            ~ConnectionDoesntExistException();
+    };
+
     class FileOpenFail : public Exception{
         public:
             FileOpenFail(std::string file);
