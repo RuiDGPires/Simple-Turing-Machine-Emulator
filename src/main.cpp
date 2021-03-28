@@ -15,6 +15,7 @@ int main(int argc, char *argv[]){
     }
     tmch::TuringMachine tm = tmch::TuringMachine();
     evl::Evaluator e(&tm);
+
     try{
         if (e.evalFile(argv[1])){
             tm.load(argv[2]);
@@ -22,12 +23,10 @@ int main(int argc, char *argv[]){
             std::cout << tm << std::endl;
             return 0;
         }
-    }catch(evl::GenericException e){
-        if (e == evl::GenericException::FILE_OPEN_FAIL){
-            PRINT_TITLE();
-            std::cout << "An error occured opening config file: " << argv[1] << std::endl;
-            PRINT_USAGE();
-        }
+    }catch(evl::FileOpenFail e){
+        PRINT_TITLE();
+        std::cout << "An error occured opening config file: " << argv[1] << std::endl;
+        PRINT_USAGE();
     }   
     
 }

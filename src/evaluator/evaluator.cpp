@@ -16,7 +16,9 @@ evl::Evaluator::Evaluator(tmch::TuringMachine *tm){
     this->tm = tm;
 }
 
-evl::Evaluator::~Evaluator(){}
+evl::Evaluator::~Evaluator(){
+    delete current_path;
+}
 
 std::list<evl::Token> evl::Evaluator::getLine(){
     std::list<evl::Token> line;
@@ -60,7 +62,7 @@ void evl::Evaluator::requestLine(){
     while (it1->symb != evl::Symb::SEMICLN && it1->symb != evl::Symb::RBRACK){
         new_line = getLine();
         if (new_line.empty())
-            throw SyntaxFailException(it1->line);
+            throw SyntaxFailException(f.file_name, it1->line);
         size = new_line.size();
         it1 = std::next(new_line.begin(), size-1);
         line.splice(line.end(), new_line);
@@ -70,9 +72,13 @@ void evl::Evaluator::requestLine(){
 
 }
 
-bool evl::Evaluator::evalFile(std::string file_name){
+bool evl::Evaluator::evalFile(Path file_name, Path current_path){
     working_list.clear();
-    f.setFile(file_name);
+
+    *this->current_path = current_path;
+    f.setFile(current_path.join(file_name));
+
+
     std::list<evl::Token> line;
     f.openFile();
     tm->clear();
@@ -102,6 +108,10 @@ bool evl::Evaluator::evalFile(std::string file_name){
         std::cout << "Connection is already declared: " << e.name << std::endl;
         f.closeFile();
         return false;
+    }catch(evl::FileOpenFail e){
+        std::cout << "Error opening file: " << e.file << std::endl;
+        f.closeFile();
+        return false;
     }catch(evl::GenericException e){
         switch(e){
             case END_OF_FILE:
@@ -119,3 +129,6 @@ bool evl::Evaluator::evalFile(std::string file_name){
 }
 
 
+bool evl::Evaluator::evalFile(std::string file_name){
+    return evalFile(Path(Path(file_name).getFileName()), Path(file_name).getParentPath());
+}

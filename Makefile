@@ -14,7 +14,7 @@ TEST_DEPS = src/catch/catch.hpp
 TEST_OFILES = src/catch/catch.o src/test.o
 
 MAIN_DEPS = ""
-MAIN_OFILES = src/main.o
+MAIN_OFILES = src/main.o src/pathLib/pathLib.a
 MAIN_CFILES = src/main.cpp
 
 GUI_DEPS = src/gui/include/*.hpp

@@ -1,5 +1,6 @@
 #include "include/evaluator.hpp"
 
+#include <iostream>
 
 void evl::Evaluator::nextSym(){
     if (working_list.empty()){
@@ -22,13 +23,13 @@ bool evl::Evaluator::accept(Symb s){
 
 void evl::Evaluator::expect(Symb s){
     if (accept(s));
-    else throw UnexpectedTokenException(current_tok.str, current_tok.line);
+    else throw UnexpectedTokenException(f.file_name, current_tok.str, current_tok.line);
 }
 
 void evl::Evaluator::configuration(){
     nextSym();
     while(expression());
-    throw SyntaxFailException(current_tok.line);
+    throw SyntaxFailException(f.file_name, current_tok.line);
 }
 
 
@@ -38,7 +39,7 @@ bool evl::Evaluator::expression(){
     int decorators = 0;
 
     if (accept(DECORATOR))
-            Decorators(&decorators);
+        Decorators(&decorators);
 
     token_method.str = current_tok.str;
     token_conn.from = current_tok.str;
@@ -105,13 +106,13 @@ void evl::Evaluator::identifier(){
 
 void evl::Evaluator::character(){
     if (current_tok.str.length() != 1)
-        throw UnexpectedTokenException(current_tok.str, current_tok.line);
+        throw UnexpectedTokenException(f.file_name, current_tok.str, current_tok.line);
     expect(NAME);
 }
 
 void evl::Evaluator::direction(evl::Connection_t *t){
     if (current_tok.str.length() != 1 || current_tok.symb != NAME)
-        throw UnexpectedTokenException(current_tok.str, current_tok.line);
+        throw UnexpectedTokenException(f.file_name, current_tok.str, current_tok.line);
 
     switch(current_tok.str[0]){
         case 'r':
@@ -127,7 +128,7 @@ void evl::Evaluator::direction(evl::Connection_t *t){
             t->dir = tmch::Dir::STAY;
             break;
         default:
-            throw UnexpectedTokenException(current_tok.str, current_tok.line);
+            throw UnexpectedTokenException(f.file_name, current_tok.str, current_tok.line);
         break;
     }
     nextSym();
@@ -141,12 +142,16 @@ int parseDecorator(std::string s){
     else if (s.compare("RejectOthers"))
         return evl::Decorator::RESET;
     else
-        throw evl::InvalidDecoratorException(s);
+        return -1;
 }
 
 void evl::Evaluator::Decorators(int *n){
+    int d;
     do {
-        *n |= parseDecorator(current_tok.str);
+        d = parseDecorator(current_tok.str);
+        if (d == -1)
+            throw evl::InvalidDecoratorException(f.file_name, current_tok.str);
+        *n |= d;
         expect(NAME);
     }while(accept(COMMA));
     expect(SEMICLN);
@@ -157,31 +162,31 @@ void evl::Evaluator::evalMethod(evl::MethodCall_t *t){
     // INIT
     if (t->str.compare("init") == 0){
         if (t->arguments.size() != 1)
-            throw InvalidMethodException("init(state) takes 1 argument");
+            throw InvalidMethodException(f.file_name, "init(state) takes 1 argument");
         tm->setInitial(*(t->arguments.begin()));
     //ACC
     }else if (t->str.compare("acc") == 0){
         if (t->arguments.size() != 1)
-            throw InvalidMethodException("acc(state) takes 1 argument");
+            throw InvalidMethodException(f.file_name, "acc(state) takes 1 argument");
         tm->setAccept(*(t->arguments.begin()));
     //REJ
     }else if (t->str.compare("rej") == 0){
         if (t->arguments.size() != 1)
-            throw InvalidMethodException("rej(state) takes 1 argument");
+            throw InvalidMethodException(f.file_name, "rej(state) takes 1 argument");
         tm->setReject(*(t->arguments.begin()));
     //REJECT OTHERS
     }else if (t->str.compare("rejectOthers") == 0){
         if (!t->arguments.empty())
-            throw InvalidMethodException("rejectOthers() takes no arguments");
+            throw InvalidMethodException(f.file_name, "rejectOthers() takes no arguments");
         tm->setRejectNoConnection(true);
     //EXTEND
     }else if (t->str.compare("extend") == 0){
         if (t->arguments.size() != 1)
-            throw InvalidMethodException("extend() takes 1 argument");
+            throw InvalidMethodException(f.file_name, "extend() takes 1 argument");
         Evaluator e(tm);
-        e.evalFile(*(t->arguments.begin()));
+        e.evalFile(this->current_path->join(*(t->arguments.begin())));
     }else
-        throw InvalidMethodException("Unkown method: " + t->str);
+        throw InvalidMethodException(f.file_name, "Unkown method: " + t->str);
 }
 void evl::Evaluator::evalConnection(evl::Connection_t *t){
     if (!tm->stateExists(t->from))
@@ -193,6 +198,6 @@ void evl::Evaluator::evalConnection(evl::Connection_t *t){
     tm->getState(t->from).addRule(t->in, t->out, t->dir, t->to);
     }catch(tmch::Exception e){
         if (e == tmch::Exception::RULE_EXISTS)
-            throw ConnectionExistsException(t->from + "->" + t->to + ": " + t->in);
+            throw ConnectionExistsException(f.file_name, t->from + "->" + t->to + ": " + t->in);
     }
 }

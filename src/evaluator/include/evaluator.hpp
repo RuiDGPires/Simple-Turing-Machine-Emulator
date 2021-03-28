@@ -7,6 +7,7 @@
 
 #include "../../turingmachine/include/turingmachine.hpp"
 #include "exceptions.hpp"
+#include "../../pathLib/include/pathLib.hpp"
 
 namespace evl{
     enum Symb{NAME, LINK, LPAREN, RPAREN , LBRACK, RBRACK, SEMICLN, CLN, COMMA, DECORATOR, END};
@@ -37,7 +38,6 @@ namespace evl{
         private:
             int line_n = 1;
             bool is_at_end = false;
-            std::string file_name;
             std::ifstream file;
         private:
             std::list<Token> parseLine(std::string line, int n);
@@ -51,6 +51,8 @@ namespace evl{
             void openFile();
             void closeFile();
             bool isAtEnd();
+        public:
+            std::string file_name;
     };
     
     class Evaluator {
@@ -59,6 +61,8 @@ namespace evl{
             Token current_tok;
             std::list<evl::Token> working_list;
             evl::FileReader f;
+
+            Path *current_path = new Path("");
             
         private:
             std::list<evl::Token> getLine();
@@ -82,7 +86,7 @@ namespace evl{
             void evalMethod(MethodCall_t *t);
             void evalConnection(Connection_t *t);
             
-
+            bool evalFile(Path path, Path current_path);
         public:
             Evaluator(tmch::TuringMachine *tm);
             ~Evaluator();

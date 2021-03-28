@@ -43,7 +43,7 @@ void evl::FileReader::openFile(){
     file.open(file_name, std::ios::in);
 
     if (!(file.is_open()))
-        throw FILE_OPEN_FAIL;
+        throw FileOpenFail(file_name);
 }
 void evl::FileReader::closeFile(){
     file.close();
@@ -99,7 +99,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                 else if (line[i] == '#')
                     return ret;
                 else
-                    throw ParseFailException(n);
+                    throw ParseFailException(file_name, n);
                 break;
             case evl::FileReader::ReadState::NAME:
                 if (!(isLetter(line[i]) || isNumber(line[i]))){
@@ -112,7 +112,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
             case evl::FileReader::ReadState::QUOTE:
                 if (line[i] == '"'){
                     if (buffer.empty())
-                        throw ParseFailException(n);
+                        throw ParseFailException(file_name, n);
                     else{
                         dumpToken(&ret, &buffer, evl::Symb::NAME, n);
                         state = evl::FileReader::ReadState::NONE;
@@ -132,9 +132,9 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                     break;
                 }else if (line[i] == '>'){
                     if (buffer.length() != 2)
-                        throw ParseFailException(n);
+                        throw ParseFailException(file_name, n);
                     if (buffer[0] != '-')
-                        throw ParseFailException(n);
+                        throw ParseFailException(file_name, n);
                     dumpToken(&ret, &buffer, evl::Symb::LINK, n);
                     state = evl::FileReader::ReadState::NONE;
                     i++;
@@ -164,7 +164,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
             case evl::FileReader::ReadState::CHAR:
                 if (line[i] == '\''){
                     if (buffer.length() != 1)
-                        throw ParseFailException(n);
+                        throw ParseFailException(file_name, n);
                     else{
                         dumpToken(&ret, &buffer, evl::Symb::NAME, n);
                         i++;
@@ -174,7 +174,7 @@ std::list<evl::Token> evl::FileReader::parseLine(std::string line, int size, int
                 }
 
                 if (!(buffer.empty()))
-                    throw ParseFailException(n);
+                    throw ParseFailException(file_name, n);
                 buffer.push_back(line[i]);
                 i++;
                 break;
