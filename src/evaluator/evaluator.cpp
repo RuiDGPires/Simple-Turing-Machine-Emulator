@@ -85,27 +85,27 @@ bool evl::Evaluator::evalFile(Path file_name, Path current_path){
     try{
         configuration();
     }catch(evl::ParseFailException e){
-        std::cout << "Parse error on line: " << e.line << std::endl;
+        std::cout << "<" + e.file + "> "<< "Parse error on line: " << e.line << std::endl;
         f.closeFile();
         return false;
     }catch(evl::SyntaxFailException e){
-        std::cout << "Syntax error on line: " << e.line << std::endl;
+        std::cout << "<" + e.file + "> "<< "Syntax error on line: " << e.line << std::endl;
         f.closeFile();
         return false;
     }catch(evl::UnexpectedTokenException e){
-        std::cout << "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
+        std::cout << "<" + e.file + "> "<< "Syntax error on line: " << e.line << std::endl << "Unexpected Token: " << e.str << std::endl;
         f.closeFile();
         return false;
     }catch(evl::InvalidMethodException e){
-        std::cout << "Invalid Method: " << e.name << std::endl;
+        std::cout << "<" + e.file + "> "<< "Invalid Method: " << e.name << std::endl;
         f.closeFile();
         return false;
     }catch(evl::InvalidDecoratorException e){
-        std::cout << "Invalid Decorator: " << e.name << std::endl;
+        std::cout << "<" + e.file + "> "<< "Invalid Decorator: " << e.name << std::endl;
         f.closeFile();
         return false;
     }catch(evl::ConnectionExistsException e){
-        std::cout << "Connection is already declared: " << e.name << std::endl;
+        std::cout << "<" + e.file + "> "<< "Connection is already declared: " << e.name << std::endl;
         f.closeFile();
         return false;
     }catch(evl::FileOpenFail e){
