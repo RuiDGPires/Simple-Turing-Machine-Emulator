@@ -25,5 +25,5 @@
 
 // Return a name of platform, if determined, otherwise - an empty string
 const int get_platform() {
-    return (PLATFORM_I == -1) ? -1 : PLATFORM_I;
+    return PLATFORM_I;
 }
