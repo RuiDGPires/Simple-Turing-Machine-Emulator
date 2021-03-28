@@ -13,6 +13,18 @@ evl::SyntaxFailException::SyntaxFailException(std::string file, int line){
 
 evl::SyntaxFailException::~SyntaxFailException(){}
 
+evl::MainStateExistsException::MainStateExistsException(std::string file, std::string state){
+    this->file = file;
+    this->state = state;
+}
+evl::MainStateExistsException::~MainStateExistsException(){}
+
+evl::MainStateDoesntExistException::MainStateDoesntExistException(std::string file, std::string state){
+    this->file = file;
+    this->state = state;
+}
+evl::MainStateDoesntExistException::~MainStateDoesntExistException(){}
+
 
 evl::UnexpectedTokenException::UnexpectedTokenException(std::string file, std::string str, int line){
     this->file = file;

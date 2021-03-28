@@ -6,6 +6,22 @@ namespace evl{
             std::string file;
     };
 
+    class MainStateExistsException : public Exception{
+        public:
+            std::string state;
+        public:
+            MainStateExistsException(std::string file, std::string state);
+            ~MainStateExistsException();
+    };
+
+    class MainStateDoesntExistException : public Exception{
+        public:
+            std::string state;
+        public:
+            MainStateDoesntExistException(std::string file, std::string state);
+            ~MainStateDoesntExistException();
+    };
+
     class ParseFailException : public Exception{
         public:
             int line;
