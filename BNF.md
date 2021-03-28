@@ -4,7 +4,9 @@ All whitespace that is not a terminal symbol is ignored
 ```bnf
 <Configuration>         ::= <Expression>*
 
-<Expression>            ::= <Method-Call> | <State-Descriptor>
+<Expression>            ::= [<Decorators>] (<Method-Call> | <State-Descriptor>)
+
+<Decorators>            ::= "@" <Identifier> ("," <Identifier>)*
 
 <Method-Call>           ::= <Identifier> "(" (<Arguments> | "") ");"
 
