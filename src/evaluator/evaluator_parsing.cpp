@@ -40,13 +40,14 @@ bool evl::Evaluator::expression(){
 
     if (accept(DECORATOR))
         Decorators(&decorators);
+    token_method.decorators |= decorators;
+    token_conn.decorators |= decorators;
 
     token_method.str = current_tok.str;
     token_conn.from = current_tok.str;
     token_method.arguments.clear();
 
-    token_method.decorators = decorators;
-    token_conn.decorators = decorators;
+    
     
     identifier();
     if (accept(LPAREN)){
@@ -76,6 +77,11 @@ bool evl::Evaluator::expression(){
 
 
 void evl::Evaluator::connection(Connection_t *t){
+    int decorators = 0;
+    if (accept(DECORATOR))
+        Decorators(&decorators);
+    t->decorators |= decorators;
+
     t->to = current_tok.str;
     identifier();
     expect(CLN);
@@ -89,6 +95,11 @@ void evl::Evaluator::connection(Connection_t *t){
 }   
 
 void evl::Evaluator::rule(evl::Connection_t *t){
+    int decorators = 0;
+    if (accept(DECORATOR))
+        Decorators(&decorators);
+    t->decorators |= decorators;
+    
     t->in = current_tok.str[0];
     character();
     expect(LINK);
