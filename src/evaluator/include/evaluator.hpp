@@ -41,6 +41,7 @@ namespace evl{
             std::ifstream file;
         private:
             std::list<Token> parseLine(std::string line, int size, int n);
+            std::list<Token> parseLine(std::string line, int n);
         public:
             FileReader();
             FileReader(std::string file_name);
@@ -50,7 +51,6 @@ namespace evl{
             void openFile();
             void closeFile();
             bool isAtEnd();
-            std::list<Token> parseLine(std::string line, int n);
         public:
             std::string file_name;
     };
