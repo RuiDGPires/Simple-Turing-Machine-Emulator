@@ -6,7 +6,7 @@ All whitespace that is not a terminal symbol is ignored
 
 <Expression>            ::= [<Decorators>] (<Method-Call> | <State-Descriptor>)
 
-<Decorators>            ::= "@" <Identifier> ("," <Identifier>)*
+<Decorators>            ::= "@" <Identifier> ("," <Identifier>)* ";"
 
 <Method-Call>           ::= <Identifier> "(" (<Arguments> | "") ");"
 
@@ -16,9 +16,9 @@ All whitespace that is not a terminal symbol is ignored
 
 <State-Descriptor>      ::= <Identifier> "->" (<Connection> | "{" <Connection>+ "}")
 
-<Connection>            ::= <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
+<Connection>            ::= [<Decorators>] <Identifier> ":" (<Rule> | "{" <Rule>+ "}")
 
-<Rule>                  ::= <Character> "->" <Character> "," <Direction> ";" 
+<Rule>                  ::= [<Decorators>] <Character> "->" <Character> "," <Direction> ";" 
 
 <Identifier>            ::=  <Quoted-Name> | <Name>
 
