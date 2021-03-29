@@ -14,5 +14,5 @@ This can be used together with @Override to always define a connection, even if 
 Similar to the method rejectOthers(), this descriptor rejects all undefined connections of the state or link it affects.
 
 ## Reset
-Clears all previosly existing connections of what it affects
+Clears all previously existing connections of what it affects
 
