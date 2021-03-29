@@ -10,7 +10,7 @@ enum{
 #define DEFAULT_FONT wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
 
 #define MY_FOLDMARGIN 2
-#define m_GCodecolor wxColor(255,130,0)
+#define COLOR_COMMENTS wxColor(130,130,130)
 
 wxStyledTextCtrl *cMain::setupEditor(wxSize size){
     
@@ -28,9 +28,10 @@ wxStyledTextCtrl *cMain::setupEditor(wxSize size){
     editor->StyleSetForeground (wxSTC_STYLE_LINENUMBER, wxColour (250, 250, 255) );
     editor->StyleSetBackground (wxSTC_STYLE_LINENUMBER, LINE_BACKGROUND_COLOR);
     editor->SetMarginType (MARGIN_LINE_NUMBERS, wxSTC_MARGIN_NUMBER);
-
+    //set color for G-Code highlighting
+    editor->StyleSetForeground(19,COLOR_COMMENTS);
     wxString text=editor->GetText().Upper();
-    //this->highlightSTCsyntax(0,editor->GetTextLength(),text);
+    this->highlightSTCsyntax(0,editor->GetTextLength(),text);
 
 
     return editor;
@@ -41,6 +42,11 @@ void cMain::OnEditorStyleNeeded(wxStyledTextEvent &evt){
     size_t line_start=editor->LineFromPosition(editor->GetEndStyled());
 
 
+    if(line_start>1) {
+        line_start-=2;
+    } else {
+        line_start=0;
+    }
     //if it is so small that all lines are visible, style the whole document
     if(editor->GetLineCount()==editor->LinesOnScreen()){
         line_start=0;
@@ -63,11 +69,11 @@ void cMain::OnEditorStyleNeeded(wxStyledTextEvent &evt){
     wxString text=editor->GetTextRange(startpos,endpos).Upper();
     //call highlighting function
     this->highlightSTCsyntax(startpos,endpos,text);
-
-
 }
 
 void cMain::highlightSTCsyntax(size_t fromPos,size_t toPos, wxString &text) {
+    if (fromPos == 0 && toPos == 0)
+        return;
     //this vector will hold the start and end position of each word to highlight
     //if you want to highlight more than one, you should pass a whole class or struct containing the offsets
     std::vector<std::pair<size_t,size_t>>GcodeVector;
@@ -92,21 +98,21 @@ void cMain::highlightSTCsyntax(size_t fromPos,size_t toPos, wxString &text) {
                 actualchar= text[actual_cursorpos];
             }
             //add digits
-            while(actual_cursorpos<end_of_text) {
+            while(actual_cursorpos<end_of_text && actualchar != '\n') {
                 actual_cursorpos++;
                 actualchar= text[actual_cursorpos];
             }
             //check if word boundary occurs at end of digits
             if((actualchar=='\n')||(actualchar=='\r')||(actual_cursorpos==end_of_text)) {
                 //success, append this one
-                if((actual_cursorpos-startpos)>1) {
+                if((actual_cursorpos-startpos)>=1) {
                     //success, append to vector. DO NOT FORGET THE OFFSET HERE! We start from fromPos, so we need to add this
                     GcodeVector.push_back(std::make_pair(startpos+fromPos, actual_cursorpos+fromPos));
                 }
                 word_boundary=true;
             }
         }
-        if((actualchar==' ')||(actualchar=='\n')||(actualchar=='\r')||(actualchar=='\t')||(actual_cursorpos==end_of_text)) {
+        if((actualchar=='\n')||(actualchar=='\r')||(actual_cursorpos==end_of_text)) {
             word_boundary=true;
         }
         actual_cursorpos++;

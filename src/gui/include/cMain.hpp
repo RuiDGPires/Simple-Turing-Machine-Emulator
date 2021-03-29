@@ -15,6 +15,7 @@
 class cMain : public wxFrame{
     private:
         bool running = false;
+        evl::FileReader fr;
         wxStyledTextCtrl *setupEditor(wxSize size);
         
         enum{MAIN_FRAME=0};

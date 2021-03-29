@@ -43,10 +43,12 @@ void cMain::OnMenuOpenClicked(wxCommandEvent &evt){
         wxString s;
         newFile.ReadAll(&s);
         editor->SetText(s);
+        wxString text=editor->GetText().Upper();
+        this->highlightSTCsyntax(0,editor->GetTextLength(),text);
     }
 
     tm.load(std::string(txtbox_input->GetValue().mb_str()));
-
+    
     
     setLabels(tm);
 }
