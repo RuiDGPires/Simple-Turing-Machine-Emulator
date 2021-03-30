@@ -14,7 +14,8 @@ GUI is done using [wxWidgets](https://www.wxwidgets.org/).
 - [x] Add comments to the text evaluator's syntax
 - [x] GUI
 - [x] System for importing other configs inside a config file
-- [ ] Config editor with syntax highlighting
+- [X] Syntax highlighting
+- [ ] Functional config editor
 - [ ] Re-writing the Makefile
 - [ ] Extensive testing
 - [ ] Possibly add multi-thread processing
