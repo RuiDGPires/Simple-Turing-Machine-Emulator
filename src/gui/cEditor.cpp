@@ -16,7 +16,7 @@ enum{
 #define COLOR_METHODS wxColor   (78, 139, 237)
 #define COLOR_LINKS wxColor     (237, 179, 5)
 #define COLOR_CHARS wxColor     (240, 237, 151)
-#define COLOR_BRACK wxColor     (214, 156, 211)
+#define COLOR_BRACK wxColor     (43, 255, 227)
 #define COLOR_PAREN wxColor     (218, 211, 230)
 #define COLOR_SEMICLN wxColor   (90, 98, 99)
 #define COLOR_DECORATORS wxColor(93, 120, 96)
