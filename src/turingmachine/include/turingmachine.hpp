@@ -105,10 +105,10 @@ namespace tmch{
             void load(std::string s);
             void step();
             /*
-             * Runs the TM until it reaches a final state
+             * Runs the TM until it reaches a final state and returns the number of steps
              * The TM can get stun in an infinite loop depending on how it is configured
              */
-            void run();
+            int run();
             void clear();
             /*
              * If true, all undefined transitions will lead to the rejection state

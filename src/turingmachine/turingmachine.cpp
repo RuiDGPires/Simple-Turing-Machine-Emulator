@@ -142,10 +142,13 @@ void tmch::TuringMachine::step(){
         state = REJECT;
 }
 
-void tmch::TuringMachine::run(){
+int tmch::TuringMachine::run(){
+    int steps= 0;
     do{
         this->step();
+        steps++;
     }while(state == State::RUNNING);
+    return steps;
 }
 
 void tmch::TuringMachine::setRejectNoConnection(bool v){
