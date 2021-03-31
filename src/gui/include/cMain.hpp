@@ -15,17 +15,20 @@
 class cMain : public wxFrame{
     private:
         bool running = false;
+        int steps = 0;
         evl::FileReader fr;
         wxStyledTextCtrl *setupEditor(wxSize size);
         
         enum{MAIN_FRAME=0};
-        enum{BTN_LOAD=100, BTN_EVAL, BTN_RUN, BTN_STEP, TXTBOX, LABEL,EDITOR};
+        enum{BTN_LOAD=100, BTN_EVAL, BTN_RUN, BTN_STEP, TXTBOX, LOG, LABEL,EDITOR};
         enum{MENU_OPEN=200, MENU_NEW, MENU_SAVE, MENU_SAVE_AS, MENU_EXIT};
 
-        wxStyledTextCtrl *editor;
     public:
         cMain();
         ~cMain();
+
+        void stepsInc();
+        void stepsReset();
 
         void doStartThread();
         void doStopThread();
@@ -58,6 +61,8 @@ class cMain : public wxFrame{
         wxBoxSizer *textbox_sizer;
         wxBoxSizer *buttons_sizer;
         wxBoxSizer *editor_sizer;
+        wxBoxSizer *log_sizer;
+        wxBoxSizer *txtctrl_sizer;
 
         wxTextCtrl *txtbox_input;
 
@@ -72,6 +77,11 @@ class cMain : public wxFrame{
         wxStaticText *mid_label;
         wxStaticText *right_label;
         wxStaticText *state_label;
+
+        wxStyledTextCtrl *editor;
+
+        wxStaticText *steps_label;
+        wxTextCtrl *log;
 };
 
 class RunningThread : public wxThread

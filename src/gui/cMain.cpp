@@ -36,6 +36,8 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     buttons_sizer = new wxBoxSizer(wxHORIZONTAL);
     textbox_sizer = new wxBoxSizer(wxHORIZONTAL);
     editor_sizer = new wxBoxSizer(wxHORIZONTAL);
+    log_sizer = new wxBoxSizer(wxVERTICAL);
+    txtctrl_sizer = new wxBoxSizer(wxHORIZONTAL);
 
     /* Labels */
     left_label = new wxStaticText(this, LABEL, "", wxPoint(0,0), wxSize(600,120), wxALIGN_RIGHT);
@@ -61,6 +63,13 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     btn_step = new wxButton(this, BTN_STEP, "Step", wxPoint(0,0), btn_size);
     btn_eval = new wxButton(this, BTN_EVAL, "Evaluate", wxPoint(0,0), btn_size);
     
+    /* Log */
+    wxFont steps_fnt = wxFont(25, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    steps_label = new wxStaticText(this, LABEL, "Steps: 0", wxPoint(0,0), wxSize(250,80), wxALIGN_CENTER);
+    steps_label->SetFont(steps_fnt);
+    log = new wxTextCtrl(this, wxID_ANY, "", wxPoint(0,0), wxSize(800,500));
+    log->SetEditable(false);
+
     /* Menu */
     menu_bar = new wxMenuBar();
     this->SetMenuBar(menu_bar);
@@ -77,7 +86,14 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     /* Text Editor */
     editor = setupEditor(wxSize(800,600));
     editor_sizer->Add(editor, 0, wxALIGN_CENTER);
-    editor_sizer->SetMinSize(wxSize(800,800));
+    editor_sizer->SetMinSize(wxSize(810,800));
+
+    log_sizer->Add(steps_label, 0, wxALIGN_CENTER);
+    log_sizer->Add(log, 0, wxALIGN_CENTER);
+    log_sizer->SetMinSize(wxSize(810,100));
+
+    txtctrl_sizer->Add(editor_sizer, 0, wxALIGN_CENTER);
+    txtctrl_sizer->Add(log_sizer, 0, wxALIGN_CENTER);
 
     label_sizer->Add(left_label, 0, wxALIGN_BOTTOM);
     label_sizer->Add(mid_label, 0, wxALIGN_BOTTOM);
@@ -95,7 +111,7 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
     main_sizer->Add(state_label, 0, wxALIGN_CENTER_HORIZONTAL);
     main_sizer->Add(textbox_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
     main_sizer->Add(buttons_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
-    main_sizer->Add(editor_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
+    main_sizer->Add(txtctrl_sizer, 0, wxALIGN_CENTER_HORIZONTAL);
 
     
     SetSizer(main_sizer);
@@ -103,6 +119,15 @@ cMain::cMain() :wxFrame(nullptr, MAIN_FRAME, "Turing Machine Emulator", wxDefaul
 }
 
 cMain::~cMain(){}
+
+void cMain::stepsInc(){
+    steps_label->SetLabelText(std::string("Steps: ") + std::to_string(++steps));
+}
+
+void cMain::stepsReset(){
+    steps = 0;
+    steps_label->SetLabelText(std::string("Steps: ") + std::to_string(0));
+}
 
 void cMain::setLabels(tmch::TuringMachine &tm){
     std::string s = tm.getConfig().getRight();

@@ -9,12 +9,14 @@ void cMain::OnButtonLoadClicked(wxCommandEvent &evt){
     tm.load(std::string(txtbox_input->GetValue().mb_str()));
     }
     setLabels(tm);
+    stepsReset();
 }
 
 void cMain::OnButtonEvalClicked(wxCommandEvent &evt){
     wxCriticalSectionLocker enter(m_tmCS);
     tm.load(std::string(txtbox_input->GetValue().mb_str()));
-    tm.run();
+    steps = tm.run() - 1;
+    stepsInc();
     setLabels(tm);
 }
 
@@ -28,6 +30,7 @@ void cMain::OnButtonRunClicked(wxCommandEvent &evt){
 void cMain::OnButtonStepClicked(wxCommandEvent &evt){
     wxCriticalSectionLocker enter(m_tmCS);
     tm.step();
+    stepsInc();
     setLabels(tm);
 }
 
@@ -69,5 +72,6 @@ void cMain::OnThreadCompletion(wxCommandEvent &evt){
 }
 
 void cMain::OnThreadUpdate(wxCommandEvent &evt){
+    stepsInc();
     setLabels(tm);
 }
