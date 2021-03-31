@@ -18,7 +18,6 @@ GUI is done using [wxWidgets](https://www.wxwidgets.org/).
 - [ ] Functional config editor
 - [ ] Re-writing the Makefile
 - [ ] Extensive testing
-- [ ] Possibly add multi-thread processing
 
 ## Example
 [Here](Example.md) is an example of how to use this project
