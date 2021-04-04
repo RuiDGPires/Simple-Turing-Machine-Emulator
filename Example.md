@@ -35,7 +35,7 @@ The test is simply run with the following command (linux terminal):
 
 tmch::TuringMachine tm = tmch::TuringMachine();
 evl::Evaluator e(&tm);
-if (e.evalFile(example.conf)){
+if (e.evalFile("example.conf")){
     tm.load("001111");
     tm.run();
     std::cout << tm << std::endl;
