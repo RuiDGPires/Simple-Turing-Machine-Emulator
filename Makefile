@@ -11,7 +11,7 @@ OFILES = src/turingmachine/turingmachine.o src/turingmachine/tmconfig.o src/turi
 CPPFILES= src/turingmachine/*.cpp src/evaluator/*.cpp
 
 TEST_DEPS = src/catch/catch.hpp
-TEST_OFILES = src/catch/catch.o src/test.o
+TEST_OFILES = src/test.o
 
 MAIN_DEPS = ""
 MAIN_OFILES = src/main.o
